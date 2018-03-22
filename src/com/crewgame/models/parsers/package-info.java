@@ -5,4 +5,4 @@
  * @author Tsvetelin
  *
  */
-package com.crewgame.models.crewMembers;
+package com.crewgame.models.parsers;

@@ -1,13 +1,13 @@
 package com.crewgame.models.identification;
 
-import java.io.File;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.crewgame.fileManagement.FileReader;
+import com.crewgame.models.parsers.BuildingIdentficatorParser;
 
 public class BuildingIdentificator {
 	
-	private HashMap<String, Integer> indentificators;
+	private List<String> identificators;
 	
 	private static BuildingIdentificator instance = null;
 	
@@ -17,7 +17,7 @@ public class BuildingIdentificator {
 		fillIndentificators();
 	}
 	
-	public BuildingIdentificator getInstance()
+	public static BuildingIdentificator getInstance()
 	{
 		if(instance==null)
 		{
@@ -28,13 +28,17 @@ public class BuildingIdentificator {
 	}
 	
 	private void initDependencies() {
-		indentificators = new HashMap<>();
+		identificators = new ArrayList<String>();
 		
 	}
 
 	private void fillIndentificators()
 	{
-		
+		identificators = new BuildingIdentficatorParser().parseDataFromFile();
+	}
+
+	public List<String> getIdentificators() {
+		return identificators;
 	}
 	
 }

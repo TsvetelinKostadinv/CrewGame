@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crewgame.models.CrewMembers;
+package com.crewgame.models.crewMembers;
 
 import com.crewgame.models.identification.PersonIdentificator;
 
