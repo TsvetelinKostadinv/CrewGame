@@ -3,25 +3,25 @@ package com.crewgame.models.identification;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.crewgame.models.parsers.BuildingIdentficatorParser;
+import com.crewgame.models.parsers.TerrainIdentificatorParser;
 
-public class BuildingIdentificator {
+public class TerrainIdentificator {
 	
 	private List<String> identificators;
 	
-	private static BuildingIdentificator instance = null;
+	private static TerrainIdentificator instance = null;
 	
-	private BuildingIdentificator()
+	private TerrainIdentificator()
 	{
 		initDependencies();
 		fillIndentificators();
 	}
 	
-	public static BuildingIdentificator getInstance()
+	public static TerrainIdentificator getInstance()
 	{
 		if(instance==null)
 		{
-			instance = new BuildingIdentificator();
+			instance = new TerrainIdentificator();
 		}
 		
 		return instance;
@@ -34,7 +34,7 @@ public class BuildingIdentificator {
 
 	private void fillIndentificators()
 	{
-		identificators = new BuildingIdentficatorParser().parseDataFromFile();
+		identificators = new TerrainIdentificatorParser().parseDataFromFile();
 	}
 
 	public List<String> getIdentificators() {

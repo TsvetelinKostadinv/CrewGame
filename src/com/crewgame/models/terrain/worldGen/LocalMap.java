@@ -1,10 +1,9 @@
-package com.crewgame.models.terrain;
+package com.crewgame.models.terrain.worldGen;
 
 import java.util.HashMap;
 
 import com.crewgame.models.exceptions.TileOccupiedException;
 import com.crewgame.models.general.Coordinate;
-import com.crewgame.models.terrain.worldGen.WorldTile;
 
 public class LocalMap {
 	

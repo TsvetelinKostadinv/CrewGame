@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crewgame.models.CrewMembers;
+package com.crewgame.models.crewMembers;
 
 /**
  * @author Tsvetelin
