@@ -1,2 +1,3 @@
 resources/buildings/identificators.txt
 resources/terrain/terrainNames.txt
+resources/pathSpeeds/speeds.txt

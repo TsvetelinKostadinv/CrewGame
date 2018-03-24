@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.crewgame.models.exceptions.TileOccupiedException;
 import com.crewgame.models.general.Coordinate;
+import com.crewgame.models.player.Player;
 
 public class LocalMap {
 	

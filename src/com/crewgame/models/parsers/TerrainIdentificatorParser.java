@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import com.crewgame.fileManagement.FileReader;
-import com.crewgame.models.Constants;
+import com.crewgame.models.general.Constants;
 
 /**
  * @author Tsvetelin
  *
  */
-public class TerrainIdentificatorParser implements Parser {
+public class TerrainIdentificatorParser implements Parser<String> {
 	
 	/**
 	 * 
@@ -37,7 +37,6 @@ public class TerrainIdentificatorParser implements Parser {
 			
 		    String pathNeeded = allPaths.skip(Constants.rowOfTerrainPath-1).findFirst().get();
 			
-		    System.out.println(pathNeeded);
 		    
 		    allPaths.close();
 		    
