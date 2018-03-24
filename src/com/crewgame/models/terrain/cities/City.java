@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.crewgame.models.exceptions.UnableToDecreaseLevelException;
 import com.crewgame.models.player.Player;
+import com.crewgame.models.terrain.cities.buildings.Building;
 
 public class City {
 	
@@ -77,7 +78,19 @@ public class City {
 		{
 			buildings.add(building);
 		}else {
-			buildings.indexOf(building);
+			int index = buildings.indexOf(building);
+			buildings.get(index).increaseLevel();
+		}
+	}
+	
+	public void removeBuilding(Building building)
+	{
+		if(!buildings.contains(building))
+		{
+			buildings.add(building);
+		}else {
+			int index = buildings.indexOf(building);
+			buildings.get(index).increaseLevel();
 		}
 	}
 

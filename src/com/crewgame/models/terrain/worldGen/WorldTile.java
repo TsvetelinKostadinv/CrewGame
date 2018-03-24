@@ -4,6 +4,7 @@
 package com.crewgame.models.terrain.worldGen;
 
 import com.crewgame.models.player.Player;
+import com.crewgame.models.terrain.Terrain;
 import com.crewgame.models.terrain.cities.City;
 
 /**
@@ -18,7 +19,7 @@ public class WorldTile {
 	private int farmableLand;
 	
 	private City city;
-	private int cityLevel;
+	private Terrain terrain;
 	
 	
 	

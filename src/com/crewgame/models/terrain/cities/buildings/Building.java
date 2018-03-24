@@ -1,4 +1,4 @@
-package com.crewgame.models.terrain.cities;
+package com.crewgame.models.terrain.cities.buildings;
 
 import com.crewgame.models.exceptions.UnableToDecreaseLevelException;
 import com.crewgame.models.identification.BuildingIdentificator;
