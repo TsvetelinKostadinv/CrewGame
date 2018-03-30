@@ -1,5 +1,5 @@
 Town hall,
 Gold mine,
 Statue,
-Barracs,
+Barracks,
 House,
