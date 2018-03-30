@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author Tsvetelin
- *
- */
-package pathSpeeds;

@@ -5,6 +5,7 @@ public class UnableToDecreaseLevelException extends Exception {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5534334051571205369L;
+	private static final long serialVersionUID = 1L;
+
 
 }

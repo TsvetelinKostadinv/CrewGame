@@ -4,13 +4,13 @@ import com.crewgame.models.general.Constants;
 import com.crewgame.models.parsers.PathSpeedParser;
 import com.crewgame.models.parsers.PathSpeedTypeCoeficient;
 
-public class Road extends Path {
+public class RailRoad extends Path {
 	
 	private Double totalSpeed;
 	
-	public Road() {
-		super(new PathSpeedParser().parseDataFromFile().get(Constants.indexOfRoadSpeed));
-		this.setCoefForType(new PathSpeedTypeCoeficient().parseDataFromFile().get(Constants.indexOfRoadSpeedCoeficient));
+	public RailRoad() {
+		super(new PathSpeedParser().parseDataFromFile().get(Constants.indexOfRailRoadSpeed));
+		this.setCoefForType(new PathSpeedTypeCoeficient().parseDataFromFile().get(Constants.indexOfRailRoadSpeedCoeficient));
 		this.totalSpeed = getCoefForType()*speedModifier;
 	}
 	

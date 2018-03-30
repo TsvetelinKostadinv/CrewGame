@@ -4,8 +4,8 @@
 package com.crewgame.models.terrain.worldGen;
 
 import com.crewgame.models.player.Player;
+import com.crewgame.models.structures.cities.City;
 import com.crewgame.models.terrain.Terrain;
-import com.crewgame.models.terrain.cities.City;
 
 /**
  * @author Tsvetelin
