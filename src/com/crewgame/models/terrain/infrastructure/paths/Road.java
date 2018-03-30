@@ -1,4 +1,4 @@
-package com.crewgame.models.terrain.infrastructure;
+package com.crewgame.models.terrain.infrastructure.paths;
 
 import com.crewgame.models.general.Constants;
 import com.crewgame.models.parsers.PathSpeedParser;

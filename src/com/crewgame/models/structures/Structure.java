@@ -13,8 +13,6 @@ public abstract class Structure {
 	public Structure() {
 		
 	}
-	
-	
 	/**
 	 * @return the name
 	 */

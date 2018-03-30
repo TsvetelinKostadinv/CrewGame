@@ -1,11 +1,11 @@
-package com.crewgame.models.terrain.infrastructure;
+package com.crewgame.models.terrain.infrastructure.paths;
 
 import java.util.List;
 
 import com.crewgame.models.exceptions.UnableToDecreaseLevelException;
 import com.crewgame.models.parsers.PathSpeedParser;
 
-abstract class Path {
+public abstract class Path {
 	
 	double speedModifier;
 	private int level;

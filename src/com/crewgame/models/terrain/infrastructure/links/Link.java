@@ -1,10 +1,11 @@
-package com.crewgame.models.terrain.infrastructure;
+package com.crewgame.models.terrain.infrastructure.links;
 
 import java.util.ArrayList;
 import com.crewgame.models.general.Pair;
 import com.crewgame.models.structures.Structure;
+import com.crewgame.models.terrain.infrastructure.paths.Path;
 
-abstract class Link<S extends Structure, F extends Structure> {
+class Link<S extends Structure, F extends Structure> {
 	
 	Pair<S, F> linkedStructures;
 	ArrayList<Path> paths;
