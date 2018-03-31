@@ -31,4 +31,14 @@ class Link<S extends Structure, F extends Structure> {
 	{
 		return linkedStructures.getValue();
 	}
+	
+	public String getStartType()
+	{
+		return linkedStructures.getKey().getClass().getSimpleName();
+	}
+	
+	public String getFinishType()
+	{
+		return linkedStructures.getValue().getClass().getSimpleName();
+	}
 }

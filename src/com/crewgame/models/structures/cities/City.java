@@ -3,7 +3,6 @@ package com.crewgame.models.structures.cities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.crewgame.models.exceptions.UnableToDecreaseLevelException;
 import com.crewgame.models.player.Player;
 import com.crewgame.models.structures.Structure;
 import com.crewgame.models.structures.cities.buildings.Building;
@@ -51,6 +50,12 @@ public class City extends Structure{
 			int index = buildings.indexOf(building);
 			buildings.get(index).increaseLevel();
 		}
+	}
+
+
+	@Override
+	public String toString() {
+		return name + "," + level + "," + owner.toString();
 	}
 
 }
