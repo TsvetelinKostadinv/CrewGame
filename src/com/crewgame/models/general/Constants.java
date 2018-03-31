@@ -9,7 +9,8 @@ public class Constants {
 	public static final int rowOfBuildingsPath = 1;
 	public static final int rowOfTerrainPath = 2;
 	public static final int rowOfPathSpeedsPath = 3;
-	public static final int rowOfCoeficientsForTypeOfRoad = 4;
+	public static final int rowOfCoeficientsForTypeOfRoadPath= 4;
+	public static final int rowOfAchievementNamesPath = 5;
 	
 	//Path Constants
 	public static final int indexOfRoadSpeed = 0;

@@ -2,3 +2,4 @@ resources/buildings/identificators.txt
 resources/terrain/terrainNames.txt
 resources/pathsInfo/speeds.txt
 resources/pathsInfo/coeficientsForTypeOfRoad.txt
+resources/achievements/achievementsNames.txt

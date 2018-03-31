@@ -24,7 +24,7 @@ public class PathSpeedTypeCoeficient implements Parser<Double> {
 			
 			Stream<String> allPaths = Files.lines(pathsFile.toPath());
 			
-		    String pathNeeded = allPaths.skip(Constants.rowOfCoeficientsForTypeOfRoad-1).findFirst().get();
+		    String pathNeeded = allPaths.skip(Constants.rowOfCoeficientsForTypeOfRoadPath-1).findFirst().get();
 			
 		    allPaths.close();
 		    
