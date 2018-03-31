@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.crewgame.models.parsers;
 
 import java.io.File;
@@ -14,26 +11,17 @@ import java.util.stream.Stream;
 import com.crewgame.fileManagement.FileReader;
 import com.crewgame.models.general.Constants;
 
-/**
- * @author Tsvetelin
- *
- */
-public class BuildingIdentficatorParser implements Parser<String> {
-	
-	/**
-	 * 
-	 */
-	public BuildingIdentficatorParser() {
-		// TODO Auto-generated constructor stub
-	}
+public class AchievementNamesParser implements Parser<String> {
 
 	@Override
 	public List<String> parseDataFromFile() {
 		List<String> names = new ArrayList<String>();
 		try{
+			
 			File pathsFile = new File(Constants.pathToAbstactPathsFile);
 			Stream<String> allPaths = Files.lines(pathsFile.toPath());
-		    String pathNeeded = allPaths.skip(Constants.rowOfBuildingsPath-1).findFirst().get();
+			
+		    String pathNeeded = allPaths.skip(Constants.rowOfAchievementNamesPath-1).findFirst().get();
 		    allPaths.close();
 		    FileReader reader = new FileReader();
 		    String wholeFile = reader.readFile(new File(pathNeeded));

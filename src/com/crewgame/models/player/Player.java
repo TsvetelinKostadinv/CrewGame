@@ -22,5 +22,10 @@ public class Player {
 	public Player() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
+	public String toString() {
+		return username + "," + password +","+ gold ;
+	}
+	
 }

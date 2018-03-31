@@ -1,6 +1,7 @@
-package com.crewgame.models.terrain.cities.buildings;
+package com.crewgame.models.structures.cities.buildings;
 
 import com.crewgame.models.exceptions.UnableToDecreaseLevelException;
+import com.crewgame.models.exceptions.UncompatibleName;
 import com.crewgame.models.identification.BuildingIdentificator;
 
 public class Building {
@@ -10,11 +11,16 @@ public class Building {
 	
 	private int code;
 	
-	public Building(String name) {
+	public Building(String name) throws UncompatibleName {
 		this.level = 1;
 		this.name = name;
 		BuildingIdentificator identif = BuildingIdentificator.getInstance();
-		this.code = identif.getIdentificators().indexOf(name);
+		if(identif.getIdentificators().indexOf(name)!=-1)
+		{
+			this.code = identif.getIdentificators().indexOf(name);
+		}else {
+			throw new UncompatibleName();
+		}
 	}
 
 	@Override
@@ -63,5 +69,6 @@ public class Building {
 	public int getCode() {
 		return code;
 	}
+
 	
 }

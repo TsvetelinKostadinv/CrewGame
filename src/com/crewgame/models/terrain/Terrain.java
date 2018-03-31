@@ -16,8 +16,6 @@ public class Terrain {
 	private double woodMultiplier;
 	
 	
-	
-	
 	public String getType() {
 		return type;
 	}
@@ -30,6 +28,7 @@ public class Terrain {
 	public void decraseGoldMultiplier() {
 		this.goldMultiplier-=Math.random();
 	}
+	
 	public double getMetalMultiplier() {
 		return metalMultiplier;
 	}
@@ -39,6 +38,7 @@ public class Terrain {
 	public void decraseMetalMultiplier() {
 		this.metalMultiplier-=Math.random();
 	}
+	
 	public double getFarmMultiplier() {
 		return farmMultiplier;
 	}
@@ -48,6 +48,7 @@ public class Terrain {
 	public void decraseFarmMultiplier() {
 		this.farmMultiplier-=Math.random();
 	}
+	
 	public double getWoodMultiplier() {
 		return woodMultiplier;
 	}
@@ -58,6 +59,13 @@ public class Terrain {
 		this.woodMultiplier-=Math.random();
 	}
 	
-	
+	@Override
+	public String toString() {
+		return type 
+				+ "," + goldMultiplier 
+				+ "," + metalMultiplier 
+				+ "," + farmMultiplier 
+				+ "," + woodMultiplier;
+	}
 	
 }

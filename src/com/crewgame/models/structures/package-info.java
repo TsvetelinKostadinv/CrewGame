@@ -5,4 +5,4 @@
  * @author Tsvetelin
  *
  */
-package com.crewgame.models.terrain.cities;
+package com.crewgame.models.structures;
