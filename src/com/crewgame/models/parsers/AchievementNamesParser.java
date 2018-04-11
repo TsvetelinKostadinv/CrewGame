@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.crewgame.fileManagement.FileReader;
+import com.crewgame.fileManagement.Reader;
 import com.crewgame.models.general.Constants;
 
 public class AchievementNamesParser implements Parser<String> {
@@ -23,7 +23,7 @@ public class AchievementNamesParser implements Parser<String> {
 			
 		    String pathNeeded = allPaths.skip(Constants.rowOfAchievementNamesPath-1).findFirst().get();
 		    allPaths.close();
-		    FileReader reader = new FileReader();
+		    Reader reader = new Reader();
 		    String wholeFile = reader.readFile(new File(pathNeeded));
 		    names = Arrays.asList(wholeFile.split(","));
 		} catch (IOException e) {

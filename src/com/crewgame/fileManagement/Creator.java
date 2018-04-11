@@ -3,7 +3,7 @@ package com.crewgame.fileManagement;
 import java.io.File;
 import java.io.IOException;
 
-public class FileCreator{
+public class Creator{
 	
 	public void createFile(File file, String path) {
 		File dir = new File(path);

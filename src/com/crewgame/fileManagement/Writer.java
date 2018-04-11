@@ -3,22 +3,23 @@ package com.crewgame.fileManagement;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class FileWriter {
+public class Writer {
 
     File targetFile;
 
-    public FileWriter() {}
+    public Writer() {}
 
     public void assignFile(File file) {
         targetFile = file;
     }
 
-    public void writeToFile(String str) {
+    public void writeToFile(String str, boolean append) {
         try {
-            BufferedWriter writer = new BufferedWriter(new PrintWriter(targetFile));
+        	PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(targetFile, append)));
             writer.write(str);
             writer.close();
             writer = null;
@@ -26,7 +27,6 @@ public class FileWriter {
         {
             e.printStackTrace();
         } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

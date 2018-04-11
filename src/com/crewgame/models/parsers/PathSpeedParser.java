@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.crewgame.fileManagement.FileReader;
+import com.crewgame.fileManagement.Reader;
 import com.crewgame.models.general.Constants;
 
 /**
@@ -27,7 +27,7 @@ public class PathSpeedParser implements Parser<Double> {
 			Stream<String> allPaths = Files.lines(pathsFile.toPath());
 		    String pathNeeded = allPaths.skip(Constants.rowOfPathSpeedsPath-1).findFirst().get();
 		    allPaths.close();
-		    FileReader reader = new FileReader();
+		    Reader reader = new Reader();
 		    String wholeFile = reader.readFile(new File(pathNeeded));
 		    String[] separatedValues = wholeFile.split(",");
 		    for (int i = 0; i < separatedValues.length; i++)

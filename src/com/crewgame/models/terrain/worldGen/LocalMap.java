@@ -1,10 +1,10 @@
 package com.crewgame.models.terrain.worldGen;
 
 import java.util.HashMap;
-
 import com.crewgame.models.exceptions.TileOccupiedException;
 import com.crewgame.models.general.Coordinate;
-import com.crewgame.models.player.Player;
+import com.crewgame.models.terrain.savers.LocalMapSaver;
+import com.crewgame.models.terrain.savers.Saver;
 
 public class LocalMap {
 	
@@ -76,6 +76,12 @@ public class LocalMap {
 	 */
 	public static int getYrange() {
 		return yRange;
+	}
+	
+	public void saveMap(String toPath)
+	{
+		Saver<LocalMap> saver = new LocalMapSaver();
+		saver.save(this, toPath);
 	}
 	
 }

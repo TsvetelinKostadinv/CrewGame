@@ -4,8 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
-public class FileReader{
+import com.crewgame.models.general.Constants;
+
+public class Reader{
 
 	public String readFile(File file) {
 		
@@ -30,6 +36,20 @@ public class FileReader{
 		}
 		
 		return text.toString();
+	}
+	
+	public String readRowOfFile(File file, int row)
+	{
+		try {
+			Stream<String> allLines = Files.lines(file.toPath());
+			String rowNeeded = allLines.skip(row-1).findFirst().get();
+			allLines.close();
+			return rowNeeded;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
