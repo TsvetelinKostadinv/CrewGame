@@ -16,6 +16,23 @@ public class Terrain {
 	private double woodMultiplier;
 	
 	
+	/**
+	 * @param type
+	 * @param goldMultiplier
+	 * @param metalMultiplier
+	 * @param farmMultiplier
+	 * @param woodMultiplier
+	 */
+	public Terrain(String type, double goldMultiplier, double metalMultiplier, double farmMultiplier,
+			double woodMultiplier) {
+		super();
+		this.type = type;
+		this.goldMultiplier = goldMultiplier;
+		this.metalMultiplier = metalMultiplier;
+		this.farmMultiplier = farmMultiplier;
+		this.woodMultiplier = woodMultiplier;
+	}
+	
 	public String getType() {
 		return type;
 	}

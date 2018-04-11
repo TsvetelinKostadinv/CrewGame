@@ -26,4 +26,5 @@ public class Constants {
 	public static final int indexOfRoadSpeedCoeficient = 0;
 	public static final int indexOfRailRoadSpeedCoeficient = 1;
 	
+	public static final String missingElementPlaceHolder = "#";
 }

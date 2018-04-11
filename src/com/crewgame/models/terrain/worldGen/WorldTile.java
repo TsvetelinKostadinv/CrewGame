@@ -3,33 +3,64 @@
  */
 package com.crewgame.models.terrain.worldGen;
 
+import com.crewgame.models.general.Constants;
 import com.crewgame.models.player.Player;
 import com.crewgame.models.structures.cities.City;
 import com.crewgame.models.terrain.Terrain;
+import com.crewgame.models.terrain.savers.Saver;
 
 /**
  * @author Tsvetelin
  *
  */
 public class WorldTile {
-	
 	private Player owner;
+	private City city;
+	private Terrain terrain;
 	
 	private int minableGold;
 	private int mineableMetal;
 	private int farmableLand;
+	private int availableWood;
 	
-	private City city;
-	private Terrain terrain;
+	/**
+	 * @param minableGold
+	 * @param mineableMetal
+	 * @param farmableLand
+	 * @param terrain
+	 */
+	public WorldTile(int minableGold, int mineableMetal, int farmableLand,int availableWood, Terrain terrain) {
+		super();
+		this.minableGold = minableGold;
+		this.mineableMetal = mineableMetal;
+		this.farmableLand = farmableLand;
+		this.terrain = terrain;
+		this.setAvailableWood(availableWood);
+	}
+
 	
 	@Override
 	public String toString() {
-		return owner.toString() 
-				+ "," + minableGold 
-				+ "," + mineableMetal  
-				+ "," + farmableLand  
-				+ "," + city.toString() 
-				+ "," + terrain.toString();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(owner!=null) sb.append(owner.toString()); else sb.append(Constants.missingElementPlaceHolder);
+		sb.append(Saver.separator);
+		sb.append(minableGold );
+		sb.append(Saver.separator);
+		sb.append(mineableMetal );
+		sb.append(Saver.separator);
+		sb.append(farmableLand );
+		sb.append(Saver.separator);
+		sb.append(availableWood );
+		sb.append(Saver.separator);
+		if (city != null) sb.append(city.toString()); else sb.append(Constants.missingElementPlaceHolder);
+		sb.append(Saver.separator);
+		sb.append(terrain.toString());
+
+		
+		return sb.toString();
+		
 	}
 	
 	/**
@@ -103,6 +134,22 @@ public class WorldTile {
 	 */
 	public void setTerrain(Terrain terrain) {
 		this.terrain = terrain;
+	}
+
+
+	/**
+	 * @return the availableWood
+	 */
+	public int getAvailableWood() {
+		return availableWood;
+	}
+
+
+	/**
+	 * @param availableWood the availableWood to set
+	 */
+	public void setAvailableWood(int availableWood) {
+		this.availableWood = availableWood;
 	}
 	
 	

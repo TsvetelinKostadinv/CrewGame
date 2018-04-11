@@ -9,7 +9,7 @@ public interface Saver<T>
 {
 	Writer writer = new Writer();
 	
-	final String separator = ",";
+	public static final String separator = ",";
 	
 	public void save(T toSave, String path);
 	
