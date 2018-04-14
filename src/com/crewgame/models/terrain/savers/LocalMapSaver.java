@@ -1,5 +1,6 @@
 package com.crewgame.models.terrain.savers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -29,9 +30,10 @@ public class LocalMapSaver implements Saver<LocalMap> {
 		{
 			Coordinate coord = entry.getKey();
 			WorldTile tile = entry.getValue();
-			
 			coordSaver.save(coord, path);
 			tileSaver.save(tile, path);
+			writer.assignFile(new File(path));
+			writer.writeToFile(System.lineSeparator(), true);
 		}
 		
 	}
