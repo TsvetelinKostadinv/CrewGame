@@ -1,9 +1,9 @@
-package com.crewgame.models.terrain.savers;
+package com.crewgame.models.world.savers;
 
 import java.io.File;
 import java.io.IOException;
 
-import com.crewgame.models.terrain.worldGen.WorldTile;
+import com.crewgame.models.world.maps.WorldTile;
 
 public class WorldTileSaver implements Saver<WorldTile> {
 	

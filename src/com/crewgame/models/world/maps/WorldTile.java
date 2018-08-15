@@ -1,20 +1,19 @@
 /**
  * 
  */
-package com.crewgame.models.terrain.worldGen;
+package com.crewgame.models.world.maps;
 
 import com.crewgame.models.general.Constants;
-import com.crewgame.models.player.Player;
 import com.crewgame.models.structures.cities.City;
-import com.crewgame.models.terrain.Terrain;
-import com.crewgame.models.terrain.savers.Saver;
+import com.crewgame.models.world.Terrain;
+import com.crewgame.models.world.savers.Saver;
 
 /**
  * @author Tsvetelin
  *
  */
 public class WorldTile {
-	private Player owner;
+	//private Player owner;
 	private City city;
 	private Terrain terrain;
 	
@@ -44,7 +43,7 @@ public class WorldTile {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		if(owner!=null) sb.append(owner.toString()); else sb.append(Constants.missingElementPlaceHolder);
+		//if(owner!=null) sb.append(owner.toString()); else sb.append(Constants.missingElementPlaceHolder);
 		sb.append(Saver.separator);
 		sb.append(minableGold );
 		sb.append(Saver.separator);
@@ -63,18 +62,18 @@ public class WorldTile {
 		
 	}
 	
-	/**
-	 * @return the owner
-	 */
-	public Player getOwner() {
-		return owner;
-	}
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(Player owner) {
-		this.owner = owner;
-	}
+//	/**
+//	 * @return the owner
+//	 */
+//	public Player getOwner() {
+//		return owner;
+//	}
+//	/**
+//	 * @param owner the owner to set
+//	 */
+//	public void setOwner(Player owner) {
+//		this.owner = owner;
+//	}
 	/**
 	 * @return the minableGold
 	 */

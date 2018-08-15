@@ -1,4 +1,4 @@
-package com.crewgame.models.terrain.savers;
+package com.crewgame.models.world.savers;
 
 import java.io.File;
 import java.io.IOException;

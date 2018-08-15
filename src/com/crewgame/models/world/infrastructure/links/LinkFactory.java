@@ -1,4 +1,4 @@
-package com.crewgame.models.terrain.infrastructure.links;
+package com.crewgame.models.world.infrastructure.links;
 
 import com.crewgame.models.structures.Structure;
 
