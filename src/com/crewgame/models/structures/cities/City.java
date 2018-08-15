@@ -3,7 +3,6 @@ package com.crewgame.models.structures.cities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.crewgame.models.player.Player;
 import com.crewgame.models.structures.Structure;
 import com.crewgame.models.structures.cities.buildings.Building;
 
@@ -11,10 +10,9 @@ public class City extends Structure{
 	
 	private List<Building> buildings;
 	
-	
-	public City(Player owner) {
+	public City(/*Player owner*/) {
 		initDependencies();
-		this.owner = owner;
+		//this.owner = owner;
 	}
 	
 
@@ -53,9 +51,9 @@ public class City extends Structure{
 	}
 
 
-	@Override
-	public String toString() {
-		return name + "," + level + "," + owner.toString();
-	}
+//	@Override
+//	public String toString() {
+//		return name + "," + level + "," + owner.toString();
+//	}
 
 }

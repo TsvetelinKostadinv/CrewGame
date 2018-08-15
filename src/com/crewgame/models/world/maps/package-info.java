@@ -5,4 +5,4 @@
  * @author Tsvetelin
  *
  */
-package com.crewgame.models.player;
+package com.crewgame.models.world.maps;

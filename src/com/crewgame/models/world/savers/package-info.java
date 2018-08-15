@@ -5,4 +5,4 @@
  * @author Tsvetelin
  *
  */
-package com.crewgame.models.terrain;
+package com.crewgame.models.world.savers;

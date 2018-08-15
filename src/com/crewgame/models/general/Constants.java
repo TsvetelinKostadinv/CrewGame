@@ -13,18 +13,18 @@ public class Constants {
 	public static final int rowOfAchievementNamesPath = 5;
 	public static final int rowOfWorldSaveFile = 6;
 	
-	/*
-	 * Path Constants
-	 */
-	public static final int indexOfRoadSpeed = 0;
-	public static final int indexOfRailRoadSpeed = 1;
+//	/*
+//	 * Path Constants
+//	 */
+//	public static final int indexOfRoadSpeed = 0;
+//	public static final int indexOfRailRoadSpeed = 1;
+//	
 	
-	
-	/*
-	 * Path coeficients
-	 */
-	public static final int indexOfRoadSpeedCoeficient = 0;
-	public static final int indexOfRailRoadSpeedCoeficient = 1;
+//	/*
+//	 * Path coeficients
+//	 */
+//	public static final int indexOfRoadSpeedCoeficient = 0;
+//	public static final int indexOfRailRoadSpeedCoeficient = 1;
 	
 	public static final String missingElementPlaceHolder = "#";
 }
