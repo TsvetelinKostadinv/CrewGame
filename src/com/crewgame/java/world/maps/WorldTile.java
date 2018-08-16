@@ -53,7 +53,7 @@ public class WorldTile {
 		sb.append(Saver.separator);
 		sb.append(availableWood );
 		sb.append(Saver.separator);
-		if (city != null) sb.append(city.toString()); else sb.append( Constants.MISSING_ELEMENT_PLACEHOLDER.getValue());
+		if (city != null) sb.append(city.toString()); else sb.append( Constants.CrewGameSpecialSymbols.MISSING_ELEMENT_PLACEHOLDER.getValue());
 		sb.append(Saver.separator);
 		sb.append(terrain.toString());
 

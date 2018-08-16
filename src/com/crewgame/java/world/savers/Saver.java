@@ -3,9 +3,9 @@ package com.crewgame.java.world.savers;
 import java.io.File;
 import java.io.IOException;
 
-import com.crewgame.fileManagement.Writer;
+import com.crewgame.fileManagement.writing.Writer;
 
-public interface Saver<T> 
+public interface Saver<T extends ISaveable> 
 {
 	Writer writer = new Writer();
 	

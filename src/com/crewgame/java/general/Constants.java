@@ -16,7 +16,8 @@ public enum Constants
 	
 	public static enum RowsOfPaths
 	{
-		ROW_OF_BUILDINGS_PATH ( 1 );
+		ROW_OF_BUILDINGS_PATH ( 1 ),
+		ROW_OF_TERRAIN_PATH ( 2 );;
 		
 		private Integer value = null;
 		
