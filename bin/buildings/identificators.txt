@@ -1,5 +1,0 @@
-Town hall,
-Gold mine,
-Statue,
-Barracks,
-House,

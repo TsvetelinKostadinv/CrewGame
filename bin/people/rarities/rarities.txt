@@ -1,9 +1,0 @@
-Very Common,
-Common,
-Not so common,
-Not so rare,
-Rare,
-Very rare,
-Epic,
-Legendary,
-Divine
