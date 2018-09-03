@@ -33,7 +33,6 @@ public abstract class Resource implements ResourceGameObject
         this.amount = amount;
     }
     
-
     
     /**
      * 

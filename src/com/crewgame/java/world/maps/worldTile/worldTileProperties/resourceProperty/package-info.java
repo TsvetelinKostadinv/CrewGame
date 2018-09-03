@@ -6,4 +6,4 @@
  * @author Tsvetelin
  *
  */
-package com.crewgame.java.world.maps.worldTileProperties.resourceProperty;
+package com.crewgame.java.world.maps.worldTile.worldTileProperties.resourceProperty;

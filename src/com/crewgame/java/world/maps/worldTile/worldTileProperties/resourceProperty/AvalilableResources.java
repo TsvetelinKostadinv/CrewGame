@@ -4,13 +4,12 @@
  * 31/08/2018 at 14:16:31
  * AvalilableResourcesProperty.java created by Tsvetelin
  */
-package com.crewgame.java.world.maps.worldTileProperties.resourceProperty;
+package com.crewgame.java.world.maps.worldTile.worldTileProperties.resourceProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.crewgame.java.world.maps.worldTileProperties.ProperyGameObject;
-import com.crewgame.java.world.maps.worldTileProperties.WorldTileProperty;
+import com.crewgame.java.world.maps.worldTile.worldTileProperties.PropertyGameObject;
 import com.crewgame.java.world.resources.Resource;
 
 /**
@@ -20,9 +19,7 @@ import com.crewgame.java.world.resources.Resource;
  * @author Tsvetelin
  *
  */
-@WorldTileProperty ( 
-        propertyClass = AvalilableResourcesProperty.class )
-public class AvalilableResourcesProperty implements ProperyGameObject
+public class AvalilableResources implements PropertyGameObject
 {
     /**
      * 
@@ -35,17 +32,48 @@ public class AvalilableResourcesProperty implements ProperyGameObject
     /**
      * 
      */
-    public AvalilableResourcesProperty ()
+    public AvalilableResources ()
     {
         this.resources = new ArrayList< Resource >();
     }
     
     /**
      * 
+     * @param resources - the <code>List</code> to be assigned
+     * @throws IllegalArgumentException if the supplied list contains duplicate <code>Resource</code> instances
      */
-    public AvalilableResourcesProperty (List< Resource > resources)
+    public AvalilableResources (List< Resource > resources)
     {
+        List<Resource> checker = new ArrayList<>();
+        
+        for(int i = 0;i<resources.size();i++)
+        {
+            if(checker.contains( resources.get( i ) ))
+            {
+               throw new IllegalArgumentException("Cannot have the same resource twice");
+            }else {
+                checker.add( resources.get( i ) );
+            }
+        }
         this.resources = new ArrayList< Resource >(resources);
+    }
+    
+    public AvalilableResources(Resource...resources )
+    {
+        List<Resource> checker = new ArrayList<>();
+        this.resources = new ArrayList< Resource >();
+        
+        for(int i = 0;i<resources.length;i++)
+        {
+            if(checker.contains( resources[i] ))
+            {
+               throw new IllegalArgumentException("Cannot have the same resource twice");
+            }else {
+                checker.add( resources[i] );
+                this.resources.add( resources[i] );
+            }
+        }
+        
     }
     
     /**
@@ -123,7 +151,7 @@ public class AvalilableResourcesProperty implements ProperyGameObject
     @Override
     public boolean equals ( Object obj )
     {
-        return this.resources.equals( ( (AvalilableResourcesProperty) obj ).resources );
+        return this.resources.equals( ( (AvalilableResources) obj ).resources );
     }
     
 
