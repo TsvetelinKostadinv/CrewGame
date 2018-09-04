@@ -51,9 +51,9 @@ public class AvalilableResources implements PropertyGameObject
             if(checker.contains( resources.get( i ) ))
             {
                throw new IllegalArgumentException("Cannot have the same resource twice");
-            }else {
-                checker.add( resources.get( i ) );
             }
+            checker.add( resources.get( i ) );
+            
         }
         this.resources = new ArrayList< Resource >(resources);
     }
@@ -69,9 +69,9 @@ public class AvalilableResources implements PropertyGameObject
             {
                throw new IllegalArgumentException("Cannot have the same resource twice");
             }else {
-                checker.add( resources[i] );
                 this.resources.add( resources[i] );
             }
+            checker.add( resources[i] );
         }
         
     }
