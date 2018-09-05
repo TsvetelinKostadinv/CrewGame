@@ -14,6 +14,9 @@ import com.crewgame.java.utils.converters.TypeConverter;
 import com.crewgame.java.utils.retrievingSaves.ReaderFromSaves;
 
 /**
+ * 
+ * A standard one-method utility class for deserializing data from a .ser file
+ * 
  * @author Tsvetelin
  *
  */

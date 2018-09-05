@@ -10,9 +10,14 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * 
+ * Parses the data from a file to a list of the supplied <code>Type</code>
+ * 
  * @author Tsvetelin
  *
+ * @param <Type> - the return type of the parsing function
  */
+@FunctionalInterface
 public interface Parser < Type >
 {
     

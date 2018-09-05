@@ -11,10 +11,21 @@ import java.io.File;
 import com.crewgame.java.base.BaseGameObject;
 
 /**
+ * 
+ * Simple interface for saving data to a file with a supplied object
+ * 
  * @author Tsvetelin
  *
  */
+@FunctionalInterface
 public interface Saver
 {
+    /**
+     * 
+     * Saves the supplied object to the location
+     * 
+     * @param location
+     * @param save
+     */
     public < T extends BaseGameObject > void save(File location, T save);
 }

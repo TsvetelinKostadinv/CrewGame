@@ -3,6 +3,9 @@
  * package-info.java created by Tsvetelin
  */
 /**
+ * 
+ * Implementation for saving via serialization
+ * 
  * @author Tsvetelin
  *
  */

@@ -3,6 +3,9 @@
  * package-info.java created by Tsvetelin
  */
 /**
+ * 
+ * The class here convert from <code>Object</code> to <code>@WorldTileProperty</code>
+ * 
  * @author Tsvetelin
  *
  */

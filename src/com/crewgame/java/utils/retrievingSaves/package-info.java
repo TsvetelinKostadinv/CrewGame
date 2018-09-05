@@ -3,6 +3,9 @@
  * package-info.java created by Tsvetelin
  */
 /**
+ * 
+ * Interfaces and implementations of retrieving data from a saved format
+ * 
  * @author Tsvetelin
  *
  */

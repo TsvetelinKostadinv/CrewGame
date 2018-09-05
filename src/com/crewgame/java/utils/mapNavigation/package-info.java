@@ -3,6 +3,9 @@
  * package-info.java created by Tsvetelin
  */
 /**
+ * 
+ * Utility classes used to traverse the map
+ * 
  * @author Tsvetelin
  *
  */

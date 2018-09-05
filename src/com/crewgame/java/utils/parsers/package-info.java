@@ -3,6 +3,10 @@
  * package-info.java created by Tsvetelin
  */
 /**
+ * 
+ * Here are the parsers for data from files to string.  <br>
+ * thinking of depreciating this and using the <code>TypeConverter</code>
+ * 
  * @author Tsvetelin
  *
  */

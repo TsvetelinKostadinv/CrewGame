@@ -8,6 +8,9 @@ package com.crewgame.java.exceptions;
 
 
 /**
+ * 
+ * This exception is thrown when a cast is attempted and it was not successful
+ * 
  * @author Tsvetelin
  *
  */

@@ -53,9 +53,9 @@ public class SerializationAndDeserializationTest
             private static final long serialVersionUID = 1L;
         };
 
-        ser.serialize( loc , new AvailableResources( res1 , res2 , res3 , res4 ) );
+        ser.save( loc , new AvailableResources( res1 , res2 , res3 , res4 ) );
 
-        AvailableResources reses = deser.deserialize( loc , AvailableResources.class );
+        AvailableResources reses = deser.readFromSave( loc , AvailableResources.class );
 
         System.out.println( reses );
 

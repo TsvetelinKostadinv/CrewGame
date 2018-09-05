@@ -9,6 +9,9 @@ package com.crewgame.java.world;
 import com.crewgame.java.base.BaseGameObject;
 
 /**
+ * 
+ * This annotates a object which lives in the world
+ * 
  * @author Tsvetelin
  *
  */

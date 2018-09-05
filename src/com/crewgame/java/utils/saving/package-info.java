@@ -3,6 +3,9 @@
  * package-info.java created by Tsvetelin
  */
 /**
+ * 
+ * Classes and interfaces for saving data from objects to a saves medium
+ * 
  * @author Tsvetelin
  *
  */

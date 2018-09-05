@@ -15,6 +15,9 @@ import com.crewgame.java.base.BaseGameObject;
 import com.crewgame.java.utils.saving.Saver;
 
 /**
+ * 
+ * Simple implementation of the <code>Saver</code> interface employing the <code>Serializable</code>
+ * 
  * @author Tsvetelin
  *
  */

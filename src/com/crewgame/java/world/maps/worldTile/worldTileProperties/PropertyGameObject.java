@@ -9,6 +9,9 @@ package com.crewgame.java.world.maps.worldTile.worldTileProperties;
 import com.crewgame.java.world.WorldGameObject;
 
 /**
+ * 
+ * Annotates a property object which will/can be saved
+ * 
  * @author Tsvetelin
  *
  */

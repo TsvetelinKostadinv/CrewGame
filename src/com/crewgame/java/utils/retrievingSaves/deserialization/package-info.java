@@ -3,6 +3,9 @@
  * package-info.java created by Tsvetelin
  */
 /**
+ * 
+ * Classes for retrieving info from a .ser file
+ * 
  * @author Tsvetelin
  *
  */

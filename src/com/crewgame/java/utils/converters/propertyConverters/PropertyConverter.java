@@ -13,18 +13,25 @@ import com.crewgame.java.utils.converters.TypeConverter;
 import com.crewgame.java.world.maps.worldTile.worldTileProperties.resourceProperty.AvailableResources;
 
 /**
+ * 
+ * Converts from one property object to another. <br>
+ * Note this object is not really needed because of the TypeConverter <br>
+ *  and it's easy to use <code>convert</code> method
+ * 
  * @author Tsvetelin
  *
  */
 public class PropertyConverter extends TypeConverter
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     static {
         Method[] methods = PropertyConverter.class.getDeclaredMethods();
         for (Method method : methods) {
-            if (method.getParameterTypes().length == 1) {
-                getConverters().put(method.getParameterTypes()[0].getName() + "_"
-                        + method.getReturnType().getName(), method);
-            }
+           addMethod( method );
         }
     }
     

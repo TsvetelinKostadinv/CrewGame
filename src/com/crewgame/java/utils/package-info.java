@@ -4,7 +4,7 @@
  */
 /**
  * 
- * This packege holds utility classes and interfaces used throughout the code
+ * This package holds utility classes and interfaces used throughout the code
  * 
  * @author Tsvetelin
  *

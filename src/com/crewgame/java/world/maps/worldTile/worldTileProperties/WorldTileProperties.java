@@ -12,6 +12,9 @@ import java.util.List;
 import com.crewgame.java.utils.Pair;
 
 /**
+ * 
+ * A container for all the properties of a given tile
+ * 
  * @author Tsvetelin
  *
  */
@@ -41,7 +44,7 @@ public class WorldTileProperties implements PropertyGameObject
      * @param prop - the resource to be added
      * 
      * 
-     * @throws IllegalArgumentException - if it already contains the resource or supplied resource is null
+     * @throws IllegalArgumentException - if it already contains the resource, supplied resource is null or the supplied object does not have an @WorldTileProperty annotation
      */
     public void addProperty(Object prop) throws IllegalArgumentException
     {
@@ -152,6 +155,13 @@ public class WorldTileProperties implements PropertyGameObject
         return -1;
     }
     
+    /**
+     * 
+     * Gets both the object and the class. Easy to cast later
+     * 
+     * @param index
+     * @return
+     */
     public Pair< Class< ? >, Object> getClassObjectPairAtIndex(int index)
     {
         return new Pair< Class<?> , Object >( getClassOfIndex( index ) , getUncastedProperyAt( index ) );

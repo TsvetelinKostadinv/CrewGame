@@ -8,6 +8,9 @@ package com.crewgame.java.utils;
 
 
 /**
+ * 
+ * Simple utility class for storing a Key/Value pair
+ * 
  * @author Tsvetelin
  *
  */
