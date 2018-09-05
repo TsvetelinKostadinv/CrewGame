@@ -69,7 +69,7 @@ public abstract class Resource implements ResourceGameObject
     public String toString ()
     {
         
-        return "Resource: " + name + " with " + amount + "points available";
+        return "Resource: " + name + " with " + amount + " points available";
     }
     
     /* (non-Javadoc)

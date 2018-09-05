@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.crewgame.java.world.maps.worldTile.worldTileProperties.PropertyGameObject;
+import com.crewgame.java.world.maps.worldTile.worldTileProperties.WorldTileProperty;
 import com.crewgame.java.world.resources.Resource;
 
 /**
@@ -19,7 +20,10 @@ import com.crewgame.java.world.resources.Resource;
  * @author Tsvetelin
  *
  */
-public class AvalilableResources implements PropertyGameObject
+@WorldTileProperty(
+        propertyClass = AvailableResources.class)
+
+public class AvailableResources implements PropertyGameObject
 {
     /**
      * 
@@ -32,7 +36,7 @@ public class AvalilableResources implements PropertyGameObject
     /**
      * 
      */
-    public AvalilableResources ()
+    public AvailableResources ()
     {
         this.resources = new ArrayList< Resource >();
     }
@@ -42,7 +46,7 @@ public class AvalilableResources implements PropertyGameObject
      * @param resources - the <code>List</code> to be assigned
      * @throws IllegalArgumentException if the supplied list contains duplicate <code>Resource</code> instances
      */
-    public AvalilableResources (List< Resource > resources)
+    public AvailableResources (List< Resource > resources)
     {
         List<Resource> checker = new ArrayList<>();
         
@@ -58,7 +62,7 @@ public class AvalilableResources implements PropertyGameObject
         this.resources = new ArrayList< Resource >(resources);
     }
     
-    public AvalilableResources(Resource...resources )
+    public AvailableResources(Resource...resources )
     {
         List<Resource> checker = new ArrayList<>();
         this.resources = new ArrayList< Resource >();
@@ -151,7 +155,7 @@ public class AvalilableResources implements PropertyGameObject
     @Override
     public boolean equals ( Object obj )
     {
-        return this.resources.equals( ( (AvalilableResources) obj ).resources );
+        return this.resources.equals( ( (AvailableResources) obj ).resources );
     }
     
 
