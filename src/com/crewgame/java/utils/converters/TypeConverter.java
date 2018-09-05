@@ -76,7 +76,6 @@ public abstract class TypeConverter
      */
     public static Map<String, Method> getConverters ()
     {
-
         return CONVERTERS;
     }
     

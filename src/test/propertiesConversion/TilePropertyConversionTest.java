@@ -17,7 +17,7 @@ import com.crewgame.java.world.resources.Resource;
  * @author Tsvetelin
  *
  */
-public class Test
+public class TilePropertyConversionTest
 {
     
     public static void main ( String [] args )
@@ -31,8 +31,6 @@ public class Test
         
         
         AvailableResources reses = new AvailableResources(res1, res2, res3, res4);
-        
-       
         
         boolean flag = reses.getClass().isAnnotationPresent( WorldTileProperty.class );
         System.out.println( "Does it have annotation: " + flag );
