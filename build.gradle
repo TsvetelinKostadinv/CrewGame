@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-archivesBaseName = 'someJar'
-version = '0.1' 
+archivesBaseName = 'CrewGame'
+version = '0.1-SNAPSHOT' 
 
 repositories {
     mavenCentral()
