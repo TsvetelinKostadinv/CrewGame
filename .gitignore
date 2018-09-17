@@ -10,3 +10,4 @@ tmp/
 local.properties
 .loadpath
 .recommenders
+/.gradle/
