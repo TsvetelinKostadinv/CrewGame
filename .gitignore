@@ -1,3 +1,4 @@
+#Eclipse
 /eclipse/
 /.metadata/
 /.settings/
@@ -10,4 +11,9 @@ tmp/
 local.properties
 .loadpath
 .recommenders
-/.gradle/
+/
+
+#Gradle
+.gradle/
+
+build/
