@@ -6,12 +6,31 @@
  * user guide available at https://docs.gradle.org/4.3/userguide/java_library_plugin.html
  */
 
-// Apply the java-library plugin to add support for Java Library
 apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'eclipse'
+
+
 archivesBaseName = 'CrewGame'
 version = '0.1-SNAPSHOT' 
+
+sourceSets 
+{
+
+    main.java.srcDir 'src/main/java'
+
+    test.java.srcDir 'src/test/java'
+
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
+    }
+}
 
 repositories 
 {
@@ -20,8 +39,11 @@ repositories
 
 dependencies 
 {
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.0.0'
 }
+
 
 jar {
     manifest {
@@ -34,22 +56,22 @@ jar {
     }
 }
 
-test 
-{
-
-  // show standard out and standard error of the test JVM(s) on the console
-  testLogging.showStandardStreams = true
-
-  // listen to events in the test execution lifecycle
-  beforeTest { descriptor ->
-     logger.lifecycle("Running test: " + descriptor)
-  }
-
-  // Fail the 'test' task on the first test failure
-  failFast = true
-
-  // listen to standard out and standard error of the test JVM(s)
-  onOutput { descriptor, event ->
-     logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
-  }
+test {
+	useJUnitPlatform()
+	
+	reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+    
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            println "\nTest result: ${result.resultType}"
+            println "Test summary: ${result.testCount} tests, " +
+                    "${result.successfulTestCount} succeeded, " +
+                    "${result.failedTestCount} failed, " +
+                    "${result.skippedTestCount} skipped"
+        }
+    }
 }
+

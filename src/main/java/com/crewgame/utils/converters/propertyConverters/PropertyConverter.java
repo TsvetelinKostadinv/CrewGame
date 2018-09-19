@@ -8,7 +8,6 @@ package com.crewgame.utils.converters.propertyConverters;
 
 import java.lang.reflect.Method;
 
-import com.crewgame.exceptions.UncastableException;
 import com.crewgame.utils.converters.TypeConverter;
 import com.crewgame.world.maps.worldTile.worldTileProperties.resourceProperty.AvailableResources;
 import com.crewgame.world.resources.Resource;
@@ -36,23 +35,21 @@ public class PropertyConverter extends TypeConverter
         }
     }
     
-    public AvailableResources toAvailableResources(Object prop) throws UncastableException
+    public AvailableResources toAvailableResources(Object prop)
     {
         if(prop.getClass().equals( AvailableResources.class ))
         {
             return (AvailableResources) prop;
-        }else {
-            throw new UncastableException( "The supplied object cannot be cast" );
         }
+        return null;
     }
     
-    public Resource toResource(Object prop) throws UncastableException
+    public Resource toResource(Object prop)
     {
         if(prop.getClass().equals( Resource.class ))
         {
             return (Resource) prop;
-        }else {
-            throw new UncastableException( "The supplied object cannot be cast" );
         }
+        return null;
     }
 }

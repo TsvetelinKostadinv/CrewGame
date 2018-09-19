@@ -53,12 +53,10 @@ public abstract class TypeConverter implements UtilityGameObject
      * InvocationTargetException.
      */
     public static <T> T convert(Object from, Class<T> to) {
-
+        
         // Null is just null.
-        if (from == null) {
-            return null;
-        }
-
+        if(to == null || from == null) return null;
+        
         // Can we cast? Then just do it.
         if (to.isAssignableFrom(from.getClass())) {
             return to.cast(from);
