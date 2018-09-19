@@ -9,8 +9,8 @@ package com.crewgame.world.maps.worldTile.worldTileProperties;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.crewgame.utils.Pair;
 import com.crewgame.world.maps.worldTile.worldTileProperties.propertyIniters.PropertyIniter;
+import com.utils.Pair;
 
 /**
  * 

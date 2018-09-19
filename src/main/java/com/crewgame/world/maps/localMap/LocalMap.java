@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.crewgame.exceptions.TileOccupiedException;
-import com.crewgame.utils.mapNavigation.coordinates.Coordinate;
 import com.crewgame.world.WorldGameObject;
 import com.crewgame.world.maps.worldTile.WorldTile;
+import com.utils.mapNavigation.coordinates.Coordinate;
 
 
 /**

@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.crewgame.utils.converters.TypeConverter;
 import com.crewgame.world.maps.worldTile.worldTileProperties.resourceProperty.AvailableResources;
 import com.crewgame.world.resources.Resource;
+import com.utils.converters.TypeConverter;
 
 
 /**
