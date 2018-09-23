@@ -16,9 +16,7 @@ public class Creator  implements IFileCreator
 	@Override
 	public File createDirectory(String directoryPath) 
 	{
-		File dir = new File( directoryPath );
-		createDirectory( dir );
-		return dir;
+		return createDirectory( new File( directoryPath ) );
 	}
 
 	@Override
@@ -35,9 +33,7 @@ public class Creator  implements IFileCreator
     @Override
 	public File createFile(String path) throws IOException 
 	{
-		File file = new File( path );
-		createFile( file );
-		return file;
+		return createFile( new File( path ) );
 	}
     
 }

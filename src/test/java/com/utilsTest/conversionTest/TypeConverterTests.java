@@ -4,7 +4,7 @@
  * 17/09/2018 at 23:59:07
  * Conv.java created by Tsvetelin
  */
-package conversionTester;
+package com.utilsTest.conversionTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 

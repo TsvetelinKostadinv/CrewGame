@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-
 import com.crewgame.base.BaseGameObject;
 import com.utils.saving.Saver;
 
@@ -26,7 +25,7 @@ public class Serializer implements Saver
     private ObjectOutputStream out;
 
     /* (non-Javadoc)
-     * @see com.utils.saving.Saver#save(java.io.File, com.crewgame.base.BaseGameObject)
+     * @see com.utilsTest.saving.Saver#save(java.io.File, com.crewgame.base.BaseGameObject)
      */
     @Override
     public < T extends BaseGameObject > void save ( File location , T save )
@@ -40,10 +39,23 @@ public class Serializer implements Saver
                 out.close();
             } catch ( IOException e )
             {
-                System.out.println( "IO exception occured" );
+                e.printStackTrace();
             }finally {
                 out = null;
             }
+        }
+    }
+    
+    public < T extends BaseGameObject > void printSerializedObject(T save)
+    {
+        try
+        {
+            out = new ObjectOutputStream( System.out );
+            out.writeObject( save );
+        } catch ( IOException e )
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
     

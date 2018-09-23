@@ -25,7 +25,7 @@ public final class Coordinate implements UtilityGameObject, Comparable< Coordina
         public int compare ( Coordinate o1 , Coordinate o2 )
         {
             if( o1.equals( o2 ) ) return 0;
-            if( o1.getX() == o2.getX() ) return o1.getY() > o2.getY() ? 1 : -1 ;
+            if( o1.getX() == o2.getX() ) return (o1.getY() > o2.getY() ? 1 : -1) ;
             if(o1.getX() > o2.getX()) return 1;
             return -1;
         }
@@ -47,7 +47,6 @@ public final class Coordinate implements UtilityGameObject, Comparable< Coordina
      */
     public Coordinate ( long x , long y )
     {
-        
         super();
         this.x = x;
         this.y = y;
@@ -95,13 +94,8 @@ public final class Coordinate implements UtilityGameObject, Comparable< Coordina
     @Override
     public int compareTo ( Coordinate o )
     {
-        if( o.equals( this ) ) return 0;
-        
-        if(o.x == this.x) return o.y == this.y ? 1 : -1 ;
-        
-        if(o.x > this.x) return 1;
-        
-        return -1;
+
+        return COORDINATE_COMPARATOR.compare( this , o );
         
     }
     

@@ -39,6 +39,7 @@ repositories
 
 dependencies 
 {
+	compile 'junit:junit:4.12'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.0.0'

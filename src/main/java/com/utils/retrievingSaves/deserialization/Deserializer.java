@@ -26,7 +26,7 @@ public class Deserializer implements ReaderFromSaves
     private ObjectInputStream in;
 
     /* (non-Javadoc)
-     * @see com.utils.retrievingSaves.ReaderFromSaves#readFromSave(java.io.File, java.lang.Class)
+     * @see com.utilsTest.retrievingSaves.ReaderFromSaves#readFromSave(java.io.File, java.lang.Class)
      */
     @Override
     public < T > T readFromSave ( File location , Class< T > desiredObject )

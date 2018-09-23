@@ -13,7 +13,7 @@ package com.crewgame.world.resources;
  * @author Tsvetelin
  *
  */
-public abstract class Resource implements ResourceGameObject
+public /* abstract */ class Resource implements ResourceGameObject
 {
     /**
      * 

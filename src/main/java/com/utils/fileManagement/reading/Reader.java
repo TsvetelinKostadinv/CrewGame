@@ -15,16 +15,19 @@ public class Reader implements IFileReader{
 		
 		StringBuilder lines = new StringBuilder();
 		
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+		BufferedReader reader = new BufferedReader(new FileReader(file));
 			
-			String line = reader.readLine();
+		String line = reader.readLine();
 			
-			while(line!=null){
-				lines.append(line);
-				line = reader.readLine();
-			}
-			reader.close();
-			reader = null;
+		while(line!=null)
+		{
+			lines.append(line);
+			lines.append( System.lineSeparator() );
+			line = reader.readLine();
+		}
+			
+		reader.close();
+		reader = null;
 
 		return lines.toString();
 	}
