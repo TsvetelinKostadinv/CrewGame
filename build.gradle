@@ -12,9 +12,9 @@ apply plugin: 'eclipse'
 
 
 archivesBaseName = 'CrewGame'
-version = '0.1-SNAPSHOT' 
+version = '0.0.0.1' 
 
-sourceSets 
+sourceSets
 {
 
     main.java.srcDir 'src/main/java'
@@ -32,12 +32,12 @@ buildscript {
     }
 }
 
-repositories 
+repositories
 {
     mavenCentral()
 }
 
-dependencies 
+dependencies
 {
 	compile 'junit:junit:4.12'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
@@ -59,12 +59,12 @@ jar {
 
 test {
 	useJUnitPlatform()
-	
+
 	reports {
         junitXml.enabled = false
         html.enabled = true
     }
-    
+
     afterSuite { desc, result ->
         if (!desc.parent) {
             println "\nTest result: ${result.resultType}"
@@ -76,3 +76,20 @@ test {
     }
 }
 
+ext.assembleNextVersionNumber = { oldVersion ->
+
+	def parts = oldVersion.tokenize(".")
+	int buildCode = parts[parts.size()-1] as Integer
+
+	buildCode+=1
+
+	return parts[0] + '.' + parts[1] + '.' + parts[2] + '.' + buildCode
+}
+
+task incrementVersion<<{
+	String newVersion = assembleNextVersionNumber(version)
+	def s = buildFile.getText().replaceFirst("version = '$version'", "version = '" + newVersion + "'")
+	buildFile.setText(s)
+}
+
+build.dependsOn incrementVersion
