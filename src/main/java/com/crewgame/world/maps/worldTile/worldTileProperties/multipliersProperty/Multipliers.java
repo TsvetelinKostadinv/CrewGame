@@ -42,6 +42,26 @@ public class Multipliers
         return res;
     }
     
+    /**
+     * Applies the functions from the map to the supplied array of Fields
+     * 
+     * @param fields - the set of field to which the functions will be applied
+     * @return the set after the application of those functions
+     */
+    public Set<Field> applyMultipliers ( Field[] fields )
+    {
+        Set<Field> res = new HashSet<>();
+        
+        for(Field f : fields)
+        {
+            if(this.multipliers.containsKey( f ))
+            {
+                res.add( applyToSingleField( f ) );
+            }
+        }
+        return res;
+    }
+    
     private Field applyToSingleField(Field f)
     {
         return this.multipliers.get( f ).apply( f );

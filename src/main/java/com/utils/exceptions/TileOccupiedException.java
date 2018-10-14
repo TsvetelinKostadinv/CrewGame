@@ -4,7 +4,7 @@
  * 09/09/2018 at 22:10:37
  * TileOccupiedException.java created by Tsvetelin
  */
-package com.crewgame.exceptions;
+package com.utils.exceptions;
 
 
 /**

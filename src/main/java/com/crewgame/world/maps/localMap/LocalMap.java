@@ -10,9 +10,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.crewgame.exceptions.TileOccupiedException;
 import com.crewgame.world.WorldGameObject;
 import com.crewgame.world.maps.worldTile.WorldTile;
+import com.utils.exceptions.TileOccupiedException;
 import com.utils.mapNavigation.coordinates.Coordinate;
 
 

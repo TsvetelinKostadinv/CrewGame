@@ -34,7 +34,7 @@ class SerializationDeserializationTest
     static TemporaryFolder tempFolder;
     static File tempFile;
     static ReaderFromSaves reader;
-    static Serializer saver;
+    static Saver saver;
     
     
     /**

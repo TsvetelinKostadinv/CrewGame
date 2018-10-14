@@ -34,10 +34,24 @@ public class WorldTileProperties implements PropertyGameObject
     /**
      * 
      */
-    public WorldTileProperties ()
+    private WorldTileProperties ()
     {
         properties = new LinkedList< Object >();
         initers = new LinkedList< PropertyIniter >();
+    }
+    
+    public static final class Builder
+    {
+        private WorldTileProperties build = new WorldTileProperties();
+        
+        public Builder initerWithProperty(PropertyIniter initer, Object prop)
+        {
+            build.addProperty( prop , initer );
+            return this;
+        }
+        
+        public WorldTileProperties build() { return build; }
+        
     }
     
     /**
@@ -49,7 +63,7 @@ public class WorldTileProperties implements PropertyGameObject
      * 
      * @throws IllegalArgumentException - if it already contains the resource, supplied resource is null or the supplied object does not have an @WorldTileProperty annotation
      */
-    public void addProperty(Object prop) throws IllegalArgumentException
+    private void addProperty(Object prop) throws IllegalArgumentException
     {
         if(!this.properties.contains( prop ) )
         {
@@ -79,7 +93,13 @@ public class WorldTileProperties implements PropertyGameObject
         return prop.getClass().isAnnotationPresent( WorldTileProperty.class );
     }
     
-    public void addIniter ( PropertyIniter initer )
+    /**
+     * 
+     * Adds the supplied initer to the initer list
+     * 
+     * @param initer
+     */
+    private void addIniter ( PropertyIniter initer )
     {
         if(initer != null)
         {
@@ -92,6 +112,19 @@ public class WorldTileProperties implements PropertyGameObject
         }else {
             throw new IllegalArgumentException("Cannot add a null object");
         }
+    }
+    
+    
+    /**
+     * Adds the supplied property and property initer to the structure
+     * 
+     * @param property - the property to be added(must have a <code>@WorldTileProperty</code> annotation)
+     * @param initer - the <code>Property</code> associated with the property
+     */
+    public void addProperty (Object propery, PropertyIniter initer)
+    {
+        this.addProperty( propery );
+        this.addIniter( initer );
     }
 
     /**
