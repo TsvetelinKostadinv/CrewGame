@@ -6,7 +6,6 @@
  */
 package com.crewgame.world.maps.worldTile.worldTileProperties.multipliersProperty;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -19,24 +18,24 @@ import com.crewgame.world.maps.worldTile.worldTileProperties.WorldTileProperty;
  *
  */
 @WorldTileProperty ( propertyClass = Multipliers.class )
-public class Multipliers
+public class Multipliers< Type >
 {
-    private final Map< Field, Function< Field, Field > > multipliers = new HashMap<>();
+    private final Map< Type, Function< Type, Type > > multipliers = new HashMap<>();
     
     /**
      * Applies the functions from the map to the supplied set of Fields
      * 
-     * @param fields - the set of field to which the functions will be applied
+     * @param objects - the set of field to which the functions will be applied
      * @return the set after the application of those functions
      */
-    public Set<Field> applyMultipliers ( Set<Field> fields )
+    public Set<Type> applyMultipliers ( Set<Type> objects )
     {
-        Set<Field> res = new HashSet<>();
-        for(Field f : fields)
+        Set<Type> res = new HashSet<>();
+        for(Type f : objects)
         {
             if(this.multipliers.containsKey( f ))
             {
-                res.add( applyToSingleField( f ) );
+                res.add( applyToSingleObject( f ) );
             }
         }
         return res;
@@ -45,44 +44,44 @@ public class Multipliers
     /**
      * Applies the functions from the map to the supplied array of Fields
      * 
-     * @param fields - the set of field to which the functions will be applied
+     * @param objects - the set of field to which the functions will be applied
      * @return the set after the application of those functions
      */
-    public Set<Field> applyMultipliers ( Field[] fields )
+    public Set<Type> applyMultipliers ( Type[] objects )
     {
-        Set<Field> res = new HashSet<>();
+        Set<Type> res = new HashSet<>();
         
-        for(Field f : fields)
+        for(Type f : objects)
         {
             if(this.multipliers.containsKey( f ))
             {
-                res.add( applyToSingleField( f ) );
+                res.add( applyToSingleObject( f ) );
             }
         }
         return res;
     }
     
-    private Field applyToSingleField(Field f)
+    private Type applyToSingleObject(Type object)
     {
-        return this.multipliers.get( f ).apply( f );
+        return this.multipliers.get( object ).apply( object );
     }
     
     /**
      * 
      * Adds the multiplier, however, will replace old <code>Function</code> with the new one
      * 
-     * @param field - the field to be operated on
+     * @param type - the field to be operated on
      * @param func - the function to be applied
      */
-    public void addMultiplier ( Field field, Function< Field , Field > func)
+    public void addMultiplier ( Type type, Function< Type , Type > func)
     {
-        multipliers.put( field , func );
+        multipliers.put( type , func );
     }
     
     /**
      * @return the multipliers
      */
-    public Map< Field , Function< Field , Field > > getMultipliers ()
+    public Map< Type , Function< Type , Type > > getMultipliers ()
     {
     
         return multipliers;
@@ -95,10 +94,11 @@ public class Multipliers
     public String toString ()
     {       
         StringBuilder sb = new StringBuilder();
-        sb.append( "There are " + multipliers.size() + " multipliers" );
-        for ( Map.Entry< Field , Function< Field, Field > > entry : multipliers.entrySet() )
+        sb.append( "There are " + multipliers.size() + " multipliers" + System.lineSeparator() );
+        for ( Map.Entry< Type , Function< Type, Type > > entry : multipliers.entrySet() )
         {
-            sb.append( "Field with name" + entry.getKey().getName() + " with function: " + entry.getValue().toString() );
+            sb.append( "From type: " + entry.getKey().getClass().getSimpleName()
+                    + " applies function " + entry.getValue().toString() );
         }
         return sb.toString();
     }
@@ -109,6 +109,7 @@ public class Multipliers
     @Override
     public boolean equals ( Object obj )
     {
-        return obj instanceof Multipliers && ( (Multipliers) obj ).multipliers.equals( this.multipliers );
+        return obj instanceof Multipliers
+                && ( ( Multipliers< ? > ) obj ).multipliers.equals( this.multipliers );
     }
 }

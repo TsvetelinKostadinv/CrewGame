@@ -6,9 +6,9 @@
  */
 package com.crewgame.world.maps.worldTile.worldTileProperties;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.crewgame.world.maps.worldTile.worldTileProperties.propertyIniters.PropertyIniter;
 import com.utils.Pair;
 
@@ -19,7 +19,7 @@ import com.utils.Pair;
  * @author Tsvetelin
  *
  */
-public class WorldTileProperties implements PropertyGameObject
+public class WorldTileProperties implements PropertyGameObject, Iterable<Object>
 {
     /**
      * 
@@ -28,7 +28,6 @@ public class WorldTileProperties implements PropertyGameObject
     
     
     private final List< Object > properties;
-    private final List< PropertyIniter > initers;
     
     
     /**
@@ -37,16 +36,15 @@ public class WorldTileProperties implements PropertyGameObject
     private WorldTileProperties ()
     {
         properties = new LinkedList< Object >();
-        initers = new LinkedList< PropertyIniter >();
     }
     
     public static final class Builder
     {
         private WorldTileProperties build = new WorldTileProperties();
         
-        public Builder initerWithProperty(PropertyIniter initer, Object prop)
+        public Builder property(Object prop)
         {
-            build.addProperty( prop , initer );
+            build.addProperty( prop );
             return this;
         }
         
@@ -91,29 +89,7 @@ public class WorldTileProperties implements PropertyGameObject
     private boolean hasAnnotation ( Object prop )
     {
         return prop.getClass().isAnnotationPresent( WorldTileProperty.class );
-    }
-    
-    /**
-     * 
-     * Adds the supplied initer to the initer list
-     * 
-     * @param initer
-     */
-    private void addIniter ( PropertyIniter initer )
-    {
-        if(initer != null)
-        {
-            if(!this.initers.contains( initer ))
-            {
-                this.initers.add( initer );
-            }else {
-                throw new IllegalArgumentException("Cannot add the same initer twice");
-            }
-        }else {
-            throw new IllegalArgumentException("Cannot add a null object");
-        }
-    }
-    
+    }    
     
     /**
      * Adds the supplied property and property initer to the structure
@@ -123,8 +99,7 @@ public class WorldTileProperties implements PropertyGameObject
      */
     public void addProperty (Object propery, PropertyIniter initer)
     {
-        this.addProperty( propery );
-        this.addIniter( initer );
+       this.addProperty( propery );
     }
 
     /**
@@ -141,14 +116,6 @@ public class WorldTileProperties implements PropertyGameObject
         } while ( this.properties.contains( prop ) );
     }
     
-    public void removeIniter ( PropertyIniter initer )
-    {
-        do
-        {
-            this.initers.remove( initer );
-        } while ( this.initers.contains( initer ) );
-    }
-    
     /**
      * 
      * 
@@ -157,15 +124,6 @@ public class WorldTileProperties implements PropertyGameObject
     public List<Object> getProperties(  )
     {
         return new LinkedList<>(this.properties);
-    }
-    
-    /**
-     * @return the initers
-     */
-    public List< PropertyIniter > getIniters ()
-    {
-
-        return initers;
     }
 
     /**
@@ -236,6 +194,52 @@ public class WorldTileProperties implements PropertyGameObject
         return new Pair< Class<?> , Object >( getClassOfIndex( index ) , getUncastedProperyAt( index ) );
     }
     
+    /**
+     * @author Tsvetelin
+     *
+     */
+    private class WorldTilePropertiesIterator implements Iterator< Object >
+    {
+        Iterator< Object > iter;
+        
+        /**
+         * 
+         */
+        public WorldTilePropertiesIterator ( WorldTileProperties props )
+        {
+            iter = props.getProperties().iterator();
+        }
+        
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
+        @Override
+        public boolean hasNext ()
+        {
+            return iter.hasNext();
+        }
+
+
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
+        @Override
+        public Object next ()
+        {
+            return iter.next();
+        }
+
+    }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Iterable#iterator()
+     */
+    @Override
+    public Iterator< Object > iterator ()
+    {
+        return new WorldTilePropertiesIterator( this );
+    }
+    
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
@@ -261,6 +265,8 @@ public class WorldTileProperties implements PropertyGameObject
     {
         return ((WorldTileProperties) obj).properties.equals( this.properties );
     }
+
+    
     
 
 }
