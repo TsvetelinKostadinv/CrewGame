@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.crewgame.people.PersonRelatedGameObject;
 import com.crewgame.people.races.definition.RaceDefinition;
-import com.crewgame.people.races.definition.RaceIndicator;
+import com.crewgame.people.races.indicators.RaceIndicator;
 
 /**
  * 
@@ -72,7 +72,7 @@ public class RacesRegister implements Iterable< RaceDefinition >, PersonRelatedG
      */
     public void addRace ( RaceDefinition race )
     {
-        if(!races.contains( race ) )
+        if( ! races.contains( race ) )
         {
             races.add( race );
         }
@@ -85,13 +85,13 @@ public class RacesRegister implements Iterable< RaceDefinition >, PersonRelatedG
      * @param name of the race
      * @return the indicator of the race if it exists and <code>null</code> otherwise
      */
-    public RaceIndicator createIndicator( String name )
+    public RaceIndicator getIndicator( String name )
     {
         for( RaceDefinition race : this )
         {
             if( race.getName().equals( name ) )
             {
-                return race.createIndicator();
+                return race.getIndicator();
             }
         }
         return null;

@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.crewgame.people.PersonRelatedGameObject;
 import com.crewgame.people.races.RaceRelationships;
+import com.crewgame.people.races.indicators.RaceIndicator;
 
 
 /**
@@ -28,6 +29,10 @@ public class RaceDefinition implements PersonRelatedGameObject
      * 
      */
     private static final long serialVersionUID = 1L;
+    
+
+    private final RaceIndicator indicator;
+
 
 
     private String name;
@@ -58,6 +63,7 @@ public class RaceDefinition implements PersonRelatedGameObject
 
         super();
         this.name = name;
+        this.indicator = new RaceIndicator( this.name );
         this.info = info;
 
         if ( !checkForDuplicateRaces( alliedRaces , enemyRaces ) )
@@ -83,6 +89,8 @@ public class RaceDefinition implements PersonRelatedGameObject
         super();
         this.name = name;
         this.info = info;
+        
+        this.indicator = new RaceIndicator( this.name );
 
         this.alliedRaces = new LinkedList< RaceDefinition >();
         this.enemyRaces = new LinkedList< RaceDefinition >();
@@ -144,13 +152,22 @@ public class RaceDefinition implements PersonRelatedGameObject
      * 
      * @see RaceRelationship
      */
-    public RaceRelationships whatIsRelationship ( RaceDefinition raceToCheck )
+    public RaceRelationships whatIsRelationship ( RaceIndicator raceToCheck )
     {
-
-        if ( alliedRaces.contains( raceToCheck ) )
+        
+        boolean isAllied = alliedRaces.stream()
+                                        .map( x -> x.getIndicator() )
+                                        .filter( x -> x.equals( raceToCheck ) )
+                                        .findAny().isPresent();
+        boolean isEnemy = enemyRaces.stream()
+                                        .map( x -> x.getIndicator() )
+                                        .filter( x -> x.equals( raceToCheck ) )
+                                        .findAny().isPresent();
+        
+        if ( isAllied )
         {
             return RaceRelationships.ALLIED;
-        } else if ( enemyRaces.contains( raceToCheck ) )
+        } else if ( isEnemy )
         {
             return RaceRelationships.ENEMIES;
         } else
@@ -173,7 +190,7 @@ public class RaceDefinition implements PersonRelatedGameObject
     public void addRace ( RaceDefinition race , RaceRelationships relationship )
     {
 
-        if ( ! ( alliedRaces.contains( race ) || enemyRaces.contains( race ) ) )
+        if ( this.whatIsRelationship( race.getIndicator() ) == RaceRelationships.NOT_INTERESTED )
         {
             if ( relationship.equals( RaceRelationships.ALLIED ) )
             {
@@ -182,6 +199,8 @@ public class RaceDefinition implements PersonRelatedGameObject
             {
                 enemyRaces.add( race );
             }
+        }else {
+            throw new UnsupportedOperationException( "Cannot add if it is already in the lists" );
         }
 
     }
@@ -192,10 +211,9 @@ public class RaceDefinition implements PersonRelatedGameObject
      * 
      * @return
      */
-    public RaceIndicator createIndicator ()
+    public RaceIndicator getIndicator ()
     {
-
-        return new RaceIndicator( this.name );
+        return indicator;
     }
     
     /**
