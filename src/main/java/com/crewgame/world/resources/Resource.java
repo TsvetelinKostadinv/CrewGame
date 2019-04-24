@@ -20,8 +20,8 @@ public /* abstract */ class Resource implements ResourceGameObject
      */
     private static final long serialVersionUID = 1L;
     
-    private String name;
-    private long amount;
+    private final String name;
+    private final long amount;
     
     
     /**
@@ -57,9 +57,9 @@ public /* abstract */ class Resource implements ResourceGameObject
      * 
      * @param newAmmount - the new amount to be assigned
      */
-    public void setAmount( long newAmmount )
+    public Resource setAmount( long newAmmount )
     {
-        this.amount = newAmmount;
+        return new Resource( this.name , newAmmount );
     }
     
     /* (non-Javadoc)

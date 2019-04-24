@@ -1,17 +1,22 @@
 
-
 /*
  * 31/08/2018 at 14:16:31
  * AvalilableResourcesProperty.java created by Tsvetelin
  */
 package com.crewgame.world.maps.worldTile.worldTileProperties.resourceProperty;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import com.crewgame.world.maps.worldTile.worldTileProperties.PropertyGameObject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
+import javax.swing.ImageIcon;
+
+import com.crewgame.world.maps.worldTile.worldTileProperties.WorldTileProperties;
 import com.crewgame.world.maps.worldTile.worldTileProperties.WorldTileProperty;
 import com.crewgame.world.resources.Resource;
+
 
 /**
  * 
@@ -20,116 +25,126 @@ import com.crewgame.world.resources.Resource;
  * @author Tsvetelin
  *
  */
-@WorldTileProperty(
-        propertyClass = AvailableResources.class)
-
-public class AvailableResources implements PropertyGameObject
+public class AvailableResources implements WorldTileProperty
 {
+
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
-    
-    private List< Resource > resources;
-    
-    
+    private static final long      serialVersionUID = 1L;
+
+    private final List< Resource > resources        = new ArrayList< Resource >();
+
     /**
      * 
+     * @param resources
+     *            - the <code>List</code> to be assigned
+     * @throws IllegalArgumentException
+     *             if the supplied list contains duplicate <code>Resource</code>
+     *             instances
      */
-    public AvailableResources ()
+    private AvailableResources ( List< Resource > resources )
     {
-        this.resources = new ArrayList< Resource >();
+        this.resources
+                .addAll( resources != null ? resources : Collections.emptyList() );
     }
-    
-    /**
-     * 
-     * @param resources - the <code>List</code> to be assigned
-     * @throws IllegalArgumentException if the supplied list contains duplicate <code>Resource</code> instances
-     */
-    public AvailableResources (List< Resource > resources)
+
+    private AvailableResources ( List< Resource > resources , Resource res )
     {
-        List<Resource> checker = new ArrayList<>();
-        
-        for(int i = 0;i<resources.size();i++)
+        if ( resources != null )
         {
-            if(checker.contains( resources.get( i ) ))
-            {
-               throw new IllegalArgumentException("Cannot have the same resource twice");
-            }
-            checker.add( resources.get( i ) );
-            
+            resources.add( res );
+            this.resources.addAll( resources );
         }
-        this.resources = new ArrayList< Resource >(resources);
     }
-    
-    public AvailableResources(Resource...resources )
+
+    public static AvailableResources empty ()
     {
-        List<Resource> checker = new ArrayList<>();
-        this.resources = new ArrayList< Resource >();
-        
-        for(int i = 0;i<resources.length;i++)
-        {
-            if(checker.contains( resources[i] ))
-            {
-               throw new IllegalArgumentException("Cannot have the same resource twice");
-            }else {
-                this.resources.add( resources[i] );
-            }
-            checker.add( resources[i] );
-        }
-        
+        return new AvailableResources( null );
     }
-    
+
     /**
      * 
      * Adds the supplied resource to the list
      * 
-     * @param res - the resource to be added
+     * @param res
+     *            - the resource to be added
      * 
      * 
-     * @throws IllegalArgumentException - if it already contains the resource or supplied resource is null
+     * @throws IllegalArgumentException
+     *             - if it already contains the resource or supplied resource is
+     *             null
      */
-    public void addResource(Resource res) throws IllegalArgumentException
+    public AvailableResources addResource ( Resource res )
+            throws IllegalArgumentException
     {
-        if(!this.resources.contains( res ))
+        Objects.requireNonNull( res );
+
+        if ( !this.resources.contains( res ) )
         {
-            if(res != null)
-            {
-                this.resources.add( res );
-            }else {
-                throw new IllegalArgumentException( "Cannot add a null element" );
-            }
-            
-        }else {
-            throw new IllegalArgumentException("Cannot have the same resource added twice");
+            return new AvailableResources( this.resources , res );
+        } else
+        {
+            throw new IllegalArgumentException(
+                    "Cannot have the same resource added twice"
+            );
         }
     }
-    
+
     /**
      * 
      * Removes ALL instances of the supplied <code>Resource</code> object
      * 
-     * @param res - the <code>Resource</code> objects to be removed
+     * @param res
+     *            - the <code>Resource</code> objects to be removed
      */
-    public void removeResource ( Resource res )
+    public AvailableResources removeResource ( Resource res )
     {
-        do
-        {
-            this.resources.remove( res );
-        } while ( this.resources.contains( res ) );
+        List< Resource > cpy = this.resources;
+        cpy.removeIf( x -> x.equals( res ) );
+        return new AvailableResources( cpy );
     }
-    
+
     /**
      * @return the resources
      */
     public List< Resource > getResources ()
     {
 
-        return new ArrayList< Resource >(this.resources);
+        return new ArrayList< Resource >( this.resources );
     }
-    
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.crewgame.world.maps.worldTile.worldTileProperties.WorldTileProperty#
+     * init(com.crewgame.world.maps.worldTile.worldTileProperties.
+     * WorldTileProperties)
+     */
+    @Override
+    public WorldTileProperties init ( WorldTileProperties otherProps )
+    {
+        return otherProps;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.crewgame.world.maps.worldTile.worldTileProperties.WorldTileProperty#
+     * getIcon()
+     */
+    @Override
+    public ImageIcon getIcon ()
+    {
+        // TODO Make it return it's icon
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
@@ -138,18 +153,20 @@ public class AvailableResources implements PropertyGameObject
         StringBuilder sb = new StringBuilder();
         sb.append( "Resource list containing : " + this.resources.size() );
         sb.append( System.lineSeparator() );
-        for(int i = 0; i < this.resources.size();i++)
+        for ( int i = 0 ; i < this.resources.size() ; i++ )
         {
             Resource res = this.resources.get( i );
             sb.append( "N" + i + " " );
             sb.append( res.toString() );
             sb.append( System.lineSeparator() );
         }
-        
+
         return sb.toString();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -157,6 +174,5 @@ public class AvailableResources implements PropertyGameObject
     {
         return this.resources.equals( ( (AvailableResources) obj ).resources );
     }
-    
 
 }

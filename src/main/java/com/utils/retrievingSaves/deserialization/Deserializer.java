@@ -11,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import com.utils.converters.TypeConverter;
 import com.utils.retrievingSaves.ReaderFromSaves;
 
 /**
@@ -28,6 +27,7 @@ public class Deserializer implements ReaderFromSaves
     /* (non-Javadoc)
      * @see com.utilsTest.retrievingSaves.ReaderFromSaves#readFromSave(java.io.File, java.lang.Class)
      */
+    @SuppressWarnings ( "unchecked" )
     @Override
     public < T > T readFromSave ( File location , Class< T > desiredObject )
     {
@@ -39,16 +39,14 @@ public class Deserializer implements ReaderFromSaves
             in.close();
         } catch ( IOException e )
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch ( ClassNotFoundException e )
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
-        in = null;
-        return TypeConverter.convert( readObj , desiredObject );
+        return (T) readObj; //TODO FIX THIS SHIT
+        //return TypeConverter.convert( readObj , desiredObject );
     }
     
    

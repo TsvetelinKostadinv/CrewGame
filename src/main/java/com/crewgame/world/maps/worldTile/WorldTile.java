@@ -37,15 +37,6 @@ public class WorldTile implements WorldGameObject
         super();
         this.props = props;
     }
-    
-    /**
-     * @param resources the resources to set
-     */
-    public void setProperties ( WorldTileProperties props )
-    {
-
-        this.props = props;
-    }
 
     /**
      * @return the resources

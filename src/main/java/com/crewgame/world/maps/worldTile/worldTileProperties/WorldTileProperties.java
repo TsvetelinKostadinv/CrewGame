@@ -1,16 +1,18 @@
 
-
 /*
  * 02/09/2018 at 15:21:01
  * WorldTileInfo.java created by Tsvetelin
  */
 package com.crewgame.world.maps.worldTile.worldTileProperties;
 
+
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import com.crewgame.world.maps.worldTile.worldTileProperties.propertyIniters.PropertyIniter;
-import com.utils.Pair;
+import java.util.Objects;
+
 
 /**
  * 
@@ -19,111 +21,103 @@ import com.utils.Pair;
  * @author Tsvetelin
  *
  */
-public class WorldTileProperties implements PropertyGameObject, Iterable<Object>
+public class WorldTileProperties implements PropertyGameObject , Iterable< WorldTileProperty >
 {
+
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
-    
-    
-    private final List< Object > properties;
-    
-    
-    /**
-     * 
-     */
-    private WorldTileProperties ()
+    private static final long               serialVersionUID = 1L;
+
+    private final List< WorldTileProperty > properties       = new LinkedList<>();
+
+    private WorldTileProperties ( List< WorldTileProperty > props )
     {
-        properties = new LinkedList< Object >();
+
+        this.properties.addAll( props );
     }
-    
-    public static final class Builder
+
+    // incremental constructor
+    private WorldTileProperties (
+            List< WorldTileProperty > props ,
+            WorldTileProperty prop
+    )
     {
-        private WorldTileProperties build = new WorldTileProperties();
-        
-        public Builder property(Object prop)
-        {
-            build.addProperty( prop );
-            return this;
-        }
-        
-        public WorldTileProperties build() { return build; }
-        
+        this.properties.addAll( props );
+        this.properties.add( prop );
     }
-    
-    /**
-     * 
-     * Adds the supplied <code>WorldTileProperty</code> to the list
-     * 
-     * @param prop - the resource to be added
-     * 
-     * 
-     * @throws IllegalArgumentException - if it already contains the resource, supplied resource is null or the supplied object does not have an @WorldTileProperty annotation
-     */
-    private void addProperty(Object prop) throws IllegalArgumentException
+
+    private WorldTileProperties ( WorldTileProperty... props )
     {
-        if(!this.properties.contains( prop ) )
-        {
-            if( hasAnnotation(prop) )
-            {
-                if(prop != null)
-                {
-                    this.properties.add( prop );
-                }else {
-                    throw new IllegalArgumentException( "Cannot add a null element" );
-                }
-            }else {
-                throw new IllegalArgumentException( "The added property must have a @WorldTileProperty annotation" );
-            }
-            
-        }else {
-            throw new IllegalArgumentException("Cannot have the same property added twice");
-        }
+
+        this.properties.addAll(
+                props != null ? Arrays.asList( props ) : Collections.emptyList()
+        );
+
     }
-    
-    /**
-     * @param prop
-     * @return
-     */
-    private boolean hasAnnotation ( Object prop )
+
+    public static WorldTileProperties empty ()
     {
-        return prop.getClass().isAnnotationPresent( WorldTileProperty.class );
-    }    
-    
-    /**
-     * Adds the supplied property and property initer to the structure
-     * 
-     * @param property - the property to be added(must have a <code>@WorldTileProperty</code> annotation)
-     * @param initer - the <code>Property</code> associated with the property
-     */
-    public void addProperty (Object propery, PropertyIniter initer)
-    {
-       this.addProperty( propery );
+        return new WorldTileProperties();
     }
 
     /**
      * 
-     * Removes ALL instances of the supplied <code>WorldTileProperty</code> object
+     * Adds the supplied <code>WorldTileProperty</code> to the list
      * 
-     * @param prop - the <code>WorldTileProperty</code> objects to be removed
+     * @param prop
+     *            - the resource to be added
+     * 
+     * 
+     * @throws IllegalArgumentException
+     *             - if it already contains the resource, supplied resource is
+     *             null
+     *             or the supplied object does not have an @WorldTileProperty
+     *             annotation
      */
-    public void removeProperty ( WorldTileProperty prop )
+    public WorldTileProperties addProperty ( WorldTileProperty prop )
+            throws IllegalArgumentException
     {
-        do
+
+        Objects.requireNonNull( prop );
+
+        if ( !this.properties.contains( prop ) )
         {
-            this.properties.remove( prop );
-        } while ( this.properties.contains( prop ) );
+            return new WorldTileProperties( this.properties , prop );
+        } else
+        {
+            throw new IllegalArgumentException(
+                    "Cannot have the same property added twice"
+            );
+        }
     }
-    
+
+    /**
+     * 
+     * Removes ALL instances of the supplied <code>WorldTileProperty</code>
+     * object
+     * 
+     * @param prop
+     *            - the <code>WorldTileProperty</code> objects to be removed
+     */
+    public WorldTileProperties removeProperty ( WorldTileProperty prop )
+    {
+        List< WorldTileProperty > cpy = this.properties;
+
+        cpy.removeIf( x -> x.equals( prop ) );
+
+        return new WorldTileProperties( cpy );
+    }
+
     /**
      * 
      * 
      * @return a copy of the properties
      */
-    public List<Object> getProperties(  )
+    public List< WorldTileProperty > getProperties ()
     {
-        return new LinkedList<>(this.properties);
+
+        return new LinkedList<>( this.properties );
     }
 
     /**
@@ -131,142 +125,68 @@ public class WorldTileProperties implements PropertyGameObject, Iterable<Object>
      * @param index
      * @return the <code>Class</code> of the property at the given index
      */
-    public Class< ? > getClassOfIndex( int index )
+    public WorldTileProperty getProperty ( int index )
     {
-        return this.properties.get( index ).getClass();
-    }
-    
-    /**
-     * 
-     * @param index
-     * @return the uncast property at the given index
-     */
-    public Object getUncastedProperyAt( int index )
-    {
+
         return this.properties.get( index );
     }
-    
+
     /**
      * 
-     * @param propertyClass - the class to be checked against
+     * @param prop
+     *            - the class to be checked against
      * @return whether the properties contain the given <code>Class</code>
      */
-    public boolean hasTilePropertyClass( Class< ? > propertyClass )
+    public boolean hasTileProperty ( WorldTileProperty prop )
     {
-        for(Object prop : properties)
-        {
-            if(prop.getClass().equals( propertyClass ) )
-            {
-                return true;
-            }
-        }
-        return false;
+        return this.properties.contains( prop );
     }
-    
-    /**
-     * 
-     * @param propertyClass - the class to be checked against
-     * @return the index of the class or -1 if it does not contain it
-     */
-    public int getIndexOfProperyClass( Class< ? > propertyClass )
-    {
-        for ( int i = 0;i<properties.size();i++)
-        {
-            
-            if ( properties.get( i ).getClass().equals( propertyClass ) )
-            {
-                return i;
-            }
-        }
-        
-        return -1;
-    }
-    
-    /**
-     * 
-     * Gets both the object and the class. Easy to cast later
-     * 
-     * @param index
-     * @return
-     */
-    public Pair< Class< ? >, Object> getClassObjectPairAtIndex(int index)
-    {
-        return new Pair< Class<?> , Object >( getClassOfIndex( index ) , getUncastedProperyAt( index ) );
-    }
-    
-    /**
-     * @author Tsvetelin
-     *
-     */
-    private class WorldTilePropertiesIterator implements Iterator< Object >
-    {
-        Iterator< Object > iter;
-        
-        /**
-         * 
-         */
-        public WorldTilePropertiesIterator ( WorldTileProperties props )
-        {
-            iter = props.getProperties().iterator();
-        }
-        
-        /* (non-Javadoc)
-         * @see java.util.Iterator#hasNext()
-         */
-        @Override
-        public boolean hasNext ()
-        {
-            return iter.hasNext();
-        }
 
-
-        /* (non-Javadoc)
-         * @see java.util.Iterator#next()
-         */
-        @Override
-        public Object next ()
-        {
-            return iter.next();
-        }
-
-    }
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Iterable#iterator()
      */
     @Override
-    public Iterator< Object > iterator ()
+    public Iterator< WorldTileProperty > iterator ()
     {
-        return new WorldTilePropertiesIterator( this );
+
+        return this.properties.iterator();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString ()
     {
+
         StringBuilder sb = new StringBuilder();
-        sb.append( "This property list contains " + properties.size() + " elements" );
+        sb.append(
+                "This property list contains " + properties.size()
+                        + " elements:"
+        );
         sb.append( System.lineSeparator() );
-        for ( Object worldTileProperty : properties )
-        {
-            sb.append( worldTileProperty.toString() );
-            sb.append( System.lineSeparator() );
-        }
+
+        this.properties.forEach(
+                x -> sb.append( x.toString() + System.lineSeparator() )
+        );
+
         return sb.toString();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals ( Object obj )
     {
-        return ((WorldTileProperties) obj).properties.equals( this.properties );
+
+        return ( (WorldTileProperties) obj ).properties
+                .equals( this.properties );
     }
-
-    
-    
-
 }
