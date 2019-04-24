@@ -11,20 +11,64 @@ package com.utils.exceptions;
  * @author Tsvetelin
  *
  */
-public class TileOccupiedException extends Exception
+public final class TileOccupiedException extends Exception
 {
-
-    /**
-     * @param string
-     */
-    public TileOccupiedException ( String string )
-    {
-        super( string );
-    }
-
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 
+     */
+    public TileOccupiedException ()
+    {
+
+        super();
+    }
+
+    /**
+     * @param message
+     * @param cause
+     * @param enableSuppression
+     * @param writableStackTrace
+     */
+    public TileOccupiedException ( String message , Throwable cause , boolean enableSuppression ,
+            boolean writableStackTrace )
+    {
+
+        super( message , cause , enableSuppression , writableStackTrace );
+    }
+
+    /**
+     * @param message
+     * @param cause
+     */
+    public TileOccupiedException ( String message , Throwable cause )
+    {
+
+        super( message , cause );
+    }
+
+    /**
+     * @param message
+     */
+    public TileOccupiedException ( String message )
+    {
+
+        super( message );
+    }
+
+    /**
+     * @param cause
+     */
+    public TileOccupiedException ( Throwable cause )
+    {
+
+        super( cause );
+    }
+    
+    
+    
 
 }

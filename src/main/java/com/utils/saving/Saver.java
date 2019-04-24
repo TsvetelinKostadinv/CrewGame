@@ -7,7 +7,7 @@
 package com.utils.saving;
 
 import java.io.File;
-import com.crewgame.base.BaseGameObject;
+import java.io.Serializable;
 
 /**
  * 
@@ -26,5 +26,6 @@ public interface Saver
      * @param location
      * @param save
      */
-    public < T extends BaseGameObject > void save(File location, T save);
+    public < T extends Serializable > void save(File location, T save);
+
 }

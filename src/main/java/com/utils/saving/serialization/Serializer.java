@@ -10,7 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import com.crewgame.base.BaseGameObject;
+import java.io.Serializable;
+
 import com.utils.saving.Saver;
 
 /**
@@ -28,7 +29,7 @@ public class Serializer implements Saver
      * @see com.utilsTest.saving.Saver#save(java.io.File, com.crewgame.base.BaseGameObject)
      */
     @Override
-    public < T extends BaseGameObject > void save ( File location , T save )
+    public < T extends Serializable > void save ( File location , T save )
     {
         if(location != null)
         {
@@ -45,18 +46,4 @@ public class Serializer implements Saver
             }
         }
     }
-    
-    public < T extends BaseGameObject > void printSerializedObject(T save)
-    {
-        try
-        {
-            out = new ObjectOutputStream( System.out );
-            out.writeObject( save );
-        } catch ( IOException e )
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    
 }

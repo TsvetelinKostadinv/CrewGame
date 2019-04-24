@@ -6,27 +6,25 @@
  */
 package com.utils.parsers;
 
-import java.io.File;
-import java.util.List;
-
 /**
  * 
- * Parses the data from a file to a list of the supplied <code>Type</code>
+ * Parses the data from a object of the supplied <code>Type</code>
  * 
  * @author Tsvetelin
  *
  * @param <Type> - the return type of the parsing function
  */
 @FunctionalInterface
-public interface Parser < Type >
+public interface Parser < From , To >
 {
     
     /**
      * 
-     * Parses the values in the given file to the <code>Type</code> object and constructs a list of them
+     * Parses the values in the given file to the <code>Type</code> object
      * 
      * @param save - the file to be read
      * @return a list of all the parsed objects or null if it cannot be parsed
      */
-    public List<Type> parse(File save);
+    public To parse(From save);
+    
 }
