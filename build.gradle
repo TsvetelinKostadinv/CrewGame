@@ -10,6 +10,8 @@ apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'eclipse'
 
+sourceCompatibility = 10
+targetCompatibility = 10
 
 archivesBaseName = 'CrewGame'
 version = '0.0.0.1' 
@@ -86,7 +88,7 @@ ext.assembleNextVersionNumber = { oldVersion ->
 	return parts[0] + '.' + parts[1] + '.' + parts[2] + '.' + buildCode
 }
 
-task incrementVersion<<{
+task incrementVersion{
 	String newVersion = assembleNextVersionNumber(version)
 	def s = buildFile.getText().replaceFirst("version = '$version'", "version = '" + newVersion + "'")
 	buildFile.setText(s)
