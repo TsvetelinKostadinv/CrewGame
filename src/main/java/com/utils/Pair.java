@@ -16,8 +16,10 @@ package com.utils;
  */
 public class Pair < KeyType , ValueType >
 {
-    private KeyType key;
-    private ValueType value;
+    private final KeyType key;
+    private final ValueType value;
+    
+    public static final Pair< ? , ? > IDENTITY = new Pair<>( null, null );
     
     /**
      * @param key
@@ -40,27 +42,12 @@ public class Pair < KeyType , ValueType >
         return key;
     }
     /**
-     * @param key the key to set
-     */
-    public void setKey ( KeyType key )
-    {
-
-        this.key = key;
-    }
-    /**
      * @return the value
      */
     public ValueType getValue ()
     {
 
         return value;
-    }
-    /**
-     * @param value the value to set
-     */
-    public void setValue ( ValueType value )
-    {
-        this.value = value;
     }
     
     /* (non-Javadoc)

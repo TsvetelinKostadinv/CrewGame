@@ -8,8 +8,6 @@ package com.utils.mapNavigation.coordinates;
 
 import java.util.Comparator;
 
-import com.utils.UtilityGameObject;
-
 /**
  * 
  * This is a utility class for storing simple coordinates
@@ -17,27 +15,14 @@ import com.utils.UtilityGameObject;
  * @author Tsvetelin
  *
  */
-public final class Coordinate implements UtilityGameObject, Comparable< Coordinate >
+public final class Coordinate implements Comparable< Coordinate >
 {
-    public static final Comparator< Coordinate > COORDINATE_COMPARATOR = new Comparator< Coordinate >()
-    {
-        @Override
-        public int compare ( Coordinate o1 , Coordinate o2 )
-        {
-            if( o1.equals( o2 ) ) return 0;
-            if( o1.getX() == o2.getX() ) return (o1.getY() > o2.getY() ? 1 : -1) ;
-            if(o1.getX() > o2.getX()) return 1;
-            return -1;
-        }
-    };
+    public static final Comparator< Coordinate > COORDINATE_COMPARATOR = ( coord1 , coord2 ) -> coord1.compareTo( coord2 );
     
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+    public static final Coordinate ORIGIN = new Coordinate( 0 , 0 );
     
-    private long x;
-    private long y;
+    private final long x;
+    private final long y;
     
 
 
@@ -51,6 +36,21 @@ public final class Coordinate implements UtilityGameObject, Comparable< Coordina
         this.x = x;
         this.y = y;
     }
+    
+    public Coordinate xy( long x , long y)
+    {
+        return new Coordinate( x , y );
+    }
+    
+    public Coordinate x(long x)
+    {
+        return new Coordinate( x , this.y );
+    }
+    
+    public Coordinate y(long y)
+    {
+        return new Coordinate( this.x , y );
+    }
 
     /**
      * @return the x
@@ -62,30 +62,12 @@ public final class Coordinate implements UtilityGameObject, Comparable< Coordina
     }
 
     /**
-     * @param x the x to set
-     */
-    public void setX ( long x )
-    {
-
-        this.x = x;
-    }
-
-    /**
      * @return the y
      */
     public long getY ()
     {
 
         return y;
-    }
-
-    /**
-     * @param y the y to set
-     */
-    public void setY ( long y )
-    {
-
-        this.y = y;
     }
     
     /* (non-Javadoc)
@@ -94,9 +76,11 @@ public final class Coordinate implements UtilityGameObject, Comparable< Coordina
     @Override
     public int compareTo ( Coordinate o )
     {
-
-        return COORDINATE_COMPARATOR.compare( this , o );
+        if( this.equals( o ) ) return 0;
+        if( this.getX() == o.getX() ) return (this.getY() > o.getY() ? 1 : -1) ;
+        if( this.getX() > o.getX()) return 1;
         
+        return -1;
     }
     
     /* (non-Javadoc)
@@ -106,7 +90,7 @@ public final class Coordinate implements UtilityGameObject, Comparable< Coordina
     public String toString ()
     {
     
-        return "x = " + x + ", y = " + y;
+        return String.format( "[x := %d , y := %d]" , x , y );
     }
     
     /* (non-Javadoc)

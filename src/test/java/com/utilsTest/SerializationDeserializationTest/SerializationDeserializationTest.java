@@ -71,14 +71,12 @@ class SerializationDeserializationTest
         
         save.createNewFile();
         
-        //Resource wood = new Resource("wood", 100){ private static final long serialVersionUID = 1L; };
-        
         Resource wood = new Resource("wood", 100);
         Resource stone = new Resource("stone", 1000);
         Resource gold = new Resource("gold", 900);
         Resource iron = new Resource("iron", 123);
         
-        AvailableResources resesForSerialization = new AvailableResources( wood, stone, gold, iron );
+        AvailableResources resesForSerialization = AvailableResources.empty().addResource( iron ).addResource( gold ).addResource( stone ).addResource( wood );
         
         saver.save( tempFile , resesForSerialization );
         
