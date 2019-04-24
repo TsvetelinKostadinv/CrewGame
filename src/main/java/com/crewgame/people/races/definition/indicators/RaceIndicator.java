@@ -4,7 +4,7 @@
  * 03/11/2018 at 14:49:28 ÷.
  * RaceIndicator.java created by Tsvetelin
  */
-package com.crewgame.people.races.indicators;
+package com.crewgame.people.races.definition.indicators;
 
 import com.crewgame.people.PersonRelatedGameObject;
 

@@ -1,5 +1,4 @@
 
-
 /*
  * 14/10/2018 at 18:06:21
  * RaceDefinition.java created by Tsvetelin
@@ -7,12 +6,14 @@
 package com.crewgame.people.races.definition;
 
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.crewgame.people.PersonRelatedGameObject;
 import com.crewgame.people.races.RaceRelationships;
-import com.crewgame.people.races.indicators.RaceIndicator;
+import com.crewgame.people.races.definition.indicators.RaceIndicator;
+import com.utils.Pair;
 
 
 /**
@@ -28,93 +29,110 @@ public class RaceDefinition implements PersonRelatedGameObject
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
-    
+    private static final long           serialVersionUID = 1L;
 
-    private final RaceIndicator indicator;
+    private final String                name;
 
+    private final RaceIndicator         indicator;
 
+    private final List< RaceIndicator > alliedRaces      = new LinkedList<>();
 
-    private String name;
-
-
-    private RaceInformation info;
-
-
-    private List< RaceDefinition > alliedRaces;
-
-
-    private List< RaceDefinition > enemyRaces;
-
+    private final List< RaceIndicator > enemyRaces       = new LinkedList<>();
 
     /**
      * @param name
      *            - the name of the race
-     * @param info
-     *            - info object for the race
      * @param alliedRaces
      *            - the list of allied races
      * @param enemyRaces
      *            - the list of enemy races
      */
-    public RaceDefinition ( String name , RaceInformation info , List< RaceDefinition > alliedRaces ,
-            List< RaceDefinition > enemyRaces )
+    private RaceDefinition (
+            String name ,
+            List< RaceIndicator > alliedRaces ,
+            List< RaceIndicator > enemyRaces
+    )
     {
-
-        super();
         this.name = name;
         this.indicator = new RaceIndicator( this.name );
-        this.info = info;
 
-        if ( !checkForDuplicateRaces( alliedRaces , enemyRaces ) )
-        {
-            this.alliedRaces = alliedRaces;
-            this.enemyRaces = enemyRaces;
-        } else
-        {
-            throw new IllegalArgumentException( "The list cannot have common elements!!" );
-        }
-
-
+        this.alliedRaces
+                .addAll(
+                        alliedRaces != null ? alliedRaces
+                                : Collections.emptyList()
+                );
+        this.enemyRaces
+                .addAll(
+                        enemyRaces != null ? enemyRaces
+                                : Collections.emptyList()
+                );
     }
 
+    private RaceDefinition (
+            String name ,
+            List< RaceIndicator > alliedRaces ,
+            List< RaceIndicator > enemyRaces ,
+            RaceIndicator enemy
+    )
+    {
+        enemyRaces.add( enemy );
+
+        this.name = name;
+        this.indicator = new RaceIndicator( this.name );
+
+        this.alliedRaces
+                .addAll(
+                        alliedRaces != null ? alliedRaces
+                                : Collections.emptyList()
+                );
+        this.enemyRaces
+                .addAll(
+                        enemyRaces != null ? enemyRaces
+                                : Collections.emptyList()
+                );
+    }
+
+    private RaceDefinition (
+            String name ,
+            List< RaceIndicator > alliedRaces ,
+            RaceIndicator alliedRace ,
+            List< RaceIndicator > enemyRaces
+    )
+    {
+        alliedRaces.add( alliedRace );
+        this.name = name;
+        this.indicator = new RaceIndicator( this.name );
+
+        this.alliedRaces
+                .addAll(
+                        alliedRaces != null ? alliedRaces
+                                : Collections.emptyList()
+                );
+        this.enemyRaces
+                .addAll(
+                        enemyRaces != null ? enemyRaces
+                                : Collections.emptyList()
+                );
+    }
 
     /**
      * @param name
      * @param info
      */
-    public RaceDefinition ( String name , RaceInformation info )
+    private RaceDefinition ( String name )
     {
-
-        super();
         this.name = name;
-        this.info = info;
-        
+
         this.indicator = new RaceIndicator( this.name );
-
-        this.alliedRaces = new LinkedList< RaceDefinition >();
-        this.enemyRaces = new LinkedList< RaceDefinition >();
     }
-
 
     /**
      * 
-     * Checks whether the lists have common elements.
-     * 
-     * @param allied
-     * @param enemy
-     * @return
      */
-    private boolean checkForDuplicateRaces ( List< RaceDefinition > allies , List< RaceDefinition > enemies )
+    public static RaceDefinition create ( String name )
     {
-
-        for ( RaceDefinition race : alliedRaces )
-        {
-            if ( enemies.contains( race ) ) { return true; }
-        }
-        return false;
+        return new RaceDefinition( name );
     }
-
 
     /**
      * 
@@ -123,12 +141,11 @@ public class RaceDefinition implements PersonRelatedGameObject
      * @return true if the supplied race is enemy to the current race and false
      *         otherwise
      */
-    public boolean isEnemyRace ( RaceDefinition raceToCheck )
+    public boolean isEnemyRace ( RaceIndicator raceToCheck )
     {
 
         return enemyRaces.contains( raceToCheck );
     }
-
 
     /**
      * 
@@ -137,12 +154,11 @@ public class RaceDefinition implements PersonRelatedGameObject
      * @return true if the supplied race is ally to the current race and false
      *         otherwise
      */
-    public boolean isAlliedRace ( RaceDefinition raceToCheck )
+    public boolean isAlliedRace ( RaceIndicator raceToCheck )
     {
 
         return alliedRaces.contains( raceToCheck );
     }
-
 
     /**
      * 
@@ -154,20 +170,11 @@ public class RaceDefinition implements PersonRelatedGameObject
      */
     public RaceRelationships whatIsRelationship ( RaceIndicator raceToCheck )
     {
-        
-        boolean isAllied = alliedRaces.stream()
-                                        .map( x -> x.getIndicator() )
-                                        .filter( x -> x.equals( raceToCheck ) )
-                                        .findAny().isPresent();
-        boolean isEnemy = enemyRaces.stream()
-                                        .map( x -> x.getIndicator() )
-                                        .filter( x -> x.equals( raceToCheck ) )
-                                        .findAny().isPresent();
-        
-        if ( isAllied )
+
+        if ( this.isAlliedRace( raceToCheck ) )
         {
             return RaceRelationships.ALLIED;
-        } else if ( isEnemy )
+        } else if ( this.isEnemyRace( raceToCheck ) )
         {
             return RaceRelationships.ENEMIES;
         } else
@@ -175,7 +182,6 @@ public class RaceDefinition implements PersonRelatedGameObject
             return RaceRelationships.NOT_INTERESTED;
         }
     }
-
 
     /**
      * 
@@ -187,22 +193,84 @@ public class RaceDefinition implements PersonRelatedGameObject
      * @param relationship
      *            - the relationship between the races
      */
-    public void addRace ( RaceDefinition race , RaceRelationships relationship )
+    private RaceDefinition addRace (
+            RaceIndicator race ,
+            RaceRelationships relationship
+    )
     {
 
-        if ( this.whatIsRelationship( race.getIndicator() ) == RaceRelationships.NOT_INTERESTED )
+        if (
+            this.whatIsRelationship( race ) == RaceRelationships.NOT_INTERESTED
+        )
         {
             if ( relationship.equals( RaceRelationships.ALLIED ) )
-            {
-                alliedRaces.add( race );
-            } else if ( relationship.equals( RaceRelationships.ENEMIES ) )
-            {
-                enemyRaces.add( race );
-            }
-        }else {
-            throw new UnsupportedOperationException( "Cannot add if it is already in the lists" );
+                return new RaceDefinition(
+                        this.name ,
+                        this.alliedRaces ,
+                        race ,
+                        this.enemyRaces
+                        );
+            else if ( relationship.equals( RaceRelationships.ENEMIES ) ) 
+                return new RaceDefinition(
+                        this.name ,
+                        this.alliedRaces ,
+                        this.enemyRaces ,
+                        race
+                        );
+            else 
+                return new RaceDefinition( name , alliedRaces , enemyRaces );
         }
+        
+        throw new UnsupportedOperationException( "Cannot add if it is already in the lists" );
 
+    }
+
+    public static interface RacesMediator
+    {
+
+        public static Pair< RaceDefinition , RaceDefinition > rivalry (
+                RaceDefinition race1 ,
+                RaceDefinition race2
+        )
+        {
+            return addThemAs( race1 , race2 , RaceRelationships.ENEMIES );
+        }
+        
+        public static Pair< RaceDefinition , RaceDefinition > alliance (
+                RaceDefinition race1 ,
+                RaceDefinition race2
+        )
+        {
+            return addThemAs( race1 , race2 , RaceRelationships.ALLIED );
+        }
+        
+        public static Pair< RaceDefinition , RaceDefinition > addThemAs(
+                RaceDefinition race1 ,
+                RaceDefinition race2 ,
+                RaceRelationships relation)
+        {
+            return new Pair<>(
+                    race1
+                            .addRace(
+                                    race2.getIndicator() ,
+                                    relation
+                            ) ,
+                    race2
+                            .addRace(
+                                    race1.getIndicator() ,
+                                    relation
+                            )
+            );
+        }
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName ()
+    {
+
+        return name;
     }
 
     /**
@@ -215,90 +283,35 @@ public class RaceDefinition implements PersonRelatedGameObject
     {
         return indicator;
     }
-    
-    /**
-     * 
-     * @param indicator - the indicator to be checked against
-     * @return true if the indicator is of this race
-     */
-    public boolean isIndicatorOfRace( RaceIndicator indicator)
-    {
-        return indicator.getName().equals( this.name );
-    }
-
-
-    /**
-     * @return the name
-     */
-    public String getName ()
-    {
-
-        return name;
-    }
-
-
-    /**
-     * @return the info
-     */
-    public RaceInformation getInfo ()
-    {
-
-        return info;
-    }
-
-
-    /**
-     * @param info
-     *            the info to set
-     */
-    public void setInfo ( RaceInformation info )
-    {
-
-        this.info = info;
-    }
-
 
     /**
      * @return the alliedRaces
      */
-    public List< RaceDefinition > getAlliedRaces ()
+    public List< RaceIndicator > getAlliedRaces ()
     {
 
-        return alliedRaces;
+        return new LinkedList<>( this.alliedRaces );
     }
-
-
-    /**
-     * @param alliedRaces
-     *            the alliedRaces to set
-     */
-    public void setAlliedRaces ( List< RaceDefinition > alliedRaces )
-    {
-
-        this.alliedRaces = alliedRaces;
-    }
-
 
     /**
      * @return the enemyRaces
      */
-    public List< RaceDefinition > getEnemyRaces ()
+    public List< RaceIndicator > getEnemyRaces ()
     {
 
-        return enemyRaces;
+        return new LinkedList<>( this.enemyRaces );
     }
-
 
     /**
-     * @param enemyRaces
-     *            the enemyRaces to set
+     * 
+     * @param indicator
+     *            - the indicator to be checked against
+     * @return true if the indicator is of this race
      */
-    public void setEnemyRaces ( List< RaceDefinition > enemyRaces )
+    public boolean isIndicatorOfRace ( RaceIndicator indicator )
     {
-
-        this.enemyRaces = enemyRaces;
+        return indicator.getName().equals( this.name );
     }
-
 
     /*
      * (non-Javadoc)
@@ -311,16 +324,30 @@ public class RaceDefinition implements PersonRelatedGameObject
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append( "This is a race with name: " + this.name + System.lineSeparator() );
+        sb
+                .append(
+                        "This is a race with name: " + this.name
+                                + System.lineSeparator()
+                );
 
-        sb.append(
-                "Allied races are: " + alliedRaces.toString().replaceAll( "[\\[\\]]" , "" ) + System.lineSeparator() );
+        sb
+                .append(
+                        "Allied races are: " + alliedRaces
+                                .toString()
+                                .replaceAll( "[\\[\\]]" , "" )
+                                + System.lineSeparator()
+                );
 
-        sb.append( "Enemy races are: " + enemyRaces.toString().replaceAll( "[\\[\\]]" , "" ) + System.lineSeparator() );
+        sb
+                .append(
+                        "Enemy races are: " + enemyRaces
+                                .toString()
+                                .replaceAll( "[\\[\\]]" , "" )
+                                + System.lineSeparator()
+                );
 
         return sb.toString();
     }
-
 
     /*
      * (non-Javadoc)
@@ -331,9 +358,8 @@ public class RaceDefinition implements PersonRelatedGameObject
     public boolean equals ( Object obj )
     {
 
-        return obj instanceof RaceDefinition && ( (RaceDefinition) obj ).alliedRaces.equals( this.alliedRaces )
-                && ( (RaceDefinition) obj ).enemyRaces.equals( this.enemyRaces );
+        return obj instanceof RaceDefinition
+                && ( (RaceDefinition) obj ).name.equals( this.name );
     }
-
 
 }

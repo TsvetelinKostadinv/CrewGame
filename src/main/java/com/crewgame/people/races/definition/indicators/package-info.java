@@ -6,4 +6,4 @@
  * @author Tsvetelin
  *
  */
-package com.crewgame.people.races.indicators;
+package com.crewgame.people.races.definition.indicators;
