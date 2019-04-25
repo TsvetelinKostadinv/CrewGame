@@ -67,9 +67,6 @@ class SerializationDeserializationTest
     @Test
     final void test () throws IOException
     {
-        File save  = new File( "src/test/java/test.txt" );
-        
-        save.createNewFile();
         
         Resource wood = new Resource("wood", 100);
         Resource stone = new Resource("stone", 1000);
@@ -81,9 +78,9 @@ class SerializationDeserializationTest
         saver.save( tempFile , resesForSerialization );
         
         AvailableResources deserReses = ( reader.readFromSave( tempFile , AvailableResources.class ));
-        
-        System.out.println( deserReses );
-        
+//        
+//        System.out.println( deserReses );
+//        
         assertEquals( resesForSerialization , deserReses );
         
     }
