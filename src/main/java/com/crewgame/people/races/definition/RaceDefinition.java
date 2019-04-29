@@ -7,12 +7,15 @@ package com.crewgame.people.races.definition;
 
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.crewgame.people.PersonRelatedGameObject;
 import com.crewgame.people.races.RaceRelationships;
 import com.crewgame.people.races.definition.indicators.RaceIndicator;
+import com.crewgame.people.races.definition.statistics.RaceMultipliers;
 import com.utils.Pair;
 
 
@@ -35,9 +38,11 @@ public class RaceDefinition implements PersonRelatedGameObject
 
     private final RaceIndicator         indicator;
 
-    private final List< RaceIndicator > alliedRaces      = new LinkedList<>();
+    private final RaceMultipliers        stats;
 
-    private final List< RaceIndicator > enemyRaces       = new LinkedList<>();
+    private final Set< RaceIndicator > alliedRaces      = new HashSet<>();
+
+    private final Set< RaceIndicator > enemyRaces       = new HashSet<>();
 
     /**
      * @param name
@@ -49,29 +54,33 @@ public class RaceDefinition implements PersonRelatedGameObject
      */
     private RaceDefinition (
             String name ,
-            List< RaceIndicator > alliedRaces ,
-            List< RaceIndicator > enemyRaces
+            RaceMultipliers stats ,
+            Set< RaceIndicator > alliedRaces ,
+            Set< RaceIndicator > enemyRaces 
     )
     {
         this.name = name;
         this.indicator = new RaceIndicator( this.name );
-
+        
+        this.stats = stats;
+        
         this.alliedRaces
                 .addAll(
                         alliedRaces != null ? alliedRaces
-                                : Collections.emptyList()
+                                : Collections.emptySet()
                 );
         this.enemyRaces
                 .addAll(
                         enemyRaces != null ? enemyRaces
-                                : Collections.emptyList()
+                                : Collections.emptySet()
                 );
     }
 
     private RaceDefinition (
             String name ,
-            List< RaceIndicator > alliedRaces ,
-            List< RaceIndicator > enemyRaces ,
+            RaceMultipliers stats ,
+            Set< RaceIndicator > alliedRaces ,
+            Set< RaceIndicator > enemyRaces ,
             RaceIndicator enemy
     )
     {
@@ -80,38 +89,43 @@ public class RaceDefinition implements PersonRelatedGameObject
         this.name = name;
         this.indicator = new RaceIndicator( this.name );
 
+        this.stats = stats;
+        
         this.alliedRaces
                 .addAll(
                         alliedRaces != null ? alliedRaces
-                                : Collections.emptyList()
+                                : Collections.emptySet()
                 );
         this.enemyRaces
                 .addAll(
                         enemyRaces != null ? enemyRaces
-                                : Collections.emptyList()
+                                : Collections.emptySet()
                 );
     }
 
     private RaceDefinition (
             String name ,
-            List< RaceIndicator > alliedRaces ,
+            RaceMultipliers stats ,
+            Set< RaceIndicator > alliedRaces ,
             RaceIndicator alliedRace ,
-            List< RaceIndicator > enemyRaces
+            Set< RaceIndicator > enemyRaces
     )
     {
         alliedRaces.add( alliedRace );
         this.name = name;
         this.indicator = new RaceIndicator( this.name );
 
+        this.stats = stats;
+        
         this.alliedRaces
                 .addAll(
                         alliedRaces != null ? alliedRaces
-                                : Collections.emptyList()
+                                : Collections.emptySet()
                 );
         this.enemyRaces
                 .addAll(
                         enemyRaces != null ? enemyRaces
-                                : Collections.emptyList()
+                                : Collections.emptySet()
                 );
     }
 
@@ -122,6 +136,8 @@ public class RaceDefinition implements PersonRelatedGameObject
     private RaceDefinition ( String name )
     {
         this.name = name;
+        
+        this.stats = new RaceMultipliers();
 
         this.indicator = new RaceIndicator( this.name );
     }
@@ -205,23 +221,26 @@ public class RaceDefinition implements PersonRelatedGameObject
         {
             if ( relationship.equals( RaceRelationships.ALLIED ) )
                 return new RaceDefinition(
-                        this.name ,
+                        this.name , 
+                        this.stats ,
                         this.alliedRaces ,
                         race ,
                         this.enemyRaces
-                        );
-            else if ( relationship.equals( RaceRelationships.ENEMIES ) ) 
+                );
+            else if ( relationship.equals( RaceRelationships.ENEMIES ) )
                 return new RaceDefinition(
                         this.name ,
+                        this.stats ,
                         this.alliedRaces ,
                         this.enemyRaces ,
                         race
-                        );
-            else 
-                return new RaceDefinition( name , alliedRaces , enemyRaces );
+                );
+            else return new RaceDefinition( name , this.stats , alliedRaces , enemyRaces );
         }
-        
-        throw new UnsupportedOperationException( "Cannot add if it is already in the lists" );
+
+        throw new UnsupportedOperationException(
+                "Cannot add if it is already in the lists"
+        );
 
     }
 
@@ -235,7 +254,7 @@ public class RaceDefinition implements PersonRelatedGameObject
         {
             return addThemAs( race1 , race2 , RaceRelationships.ENEMIES );
         }
-        
+
         public static Pair< RaceDefinition , RaceDefinition > alliance (
                 RaceDefinition race1 ,
                 RaceDefinition race2
@@ -243,11 +262,12 @@ public class RaceDefinition implements PersonRelatedGameObject
         {
             return addThemAs( race1 , race2 , RaceRelationships.ALLIED );
         }
-        
-        public static Pair< RaceDefinition , RaceDefinition > addThemAs(
+
+        public static Pair< RaceDefinition , RaceDefinition > addThemAs (
                 RaceDefinition race1 ,
                 RaceDefinition race2 ,
-                RaceRelationships relation)
+                RaceRelationships relation
+        )
         {
             return new Pair<>(
                     race1
@@ -282,6 +302,15 @@ public class RaceDefinition implements PersonRelatedGameObject
     public RaceIndicator getIndicator ()
     {
         return indicator;
+    }
+
+    
+    /**
+     * @return the stats
+     */
+    public RaceMultipliers getStats ()
+    {
+        return stats;
     }
 
     /**

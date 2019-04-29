@@ -14,7 +14,7 @@ sourceCompatibility = 10
 targetCompatibility = 10
 
 archivesBaseName = 'CrewGame'
-version = '0.0.0.1' 
+version = '0.0.0.639' 
 
 sourceSets
 {

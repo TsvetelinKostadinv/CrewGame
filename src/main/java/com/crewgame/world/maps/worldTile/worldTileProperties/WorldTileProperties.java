@@ -8,10 +8,10 @@ package com.crewgame.world.maps.worldTile.worldTileProperties;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 /**
@@ -29,9 +29,9 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
      */
     private static final long               serialVersionUID = 1L;
 
-    private final List< WorldTileProperty > properties       = new LinkedList<>();
+    private final Set< WorldTileProperty > properties       = new HashSet<>();
 
-    private WorldTileProperties ( List< WorldTileProperty > props )
+    private WorldTileProperties ( Set< WorldTileProperty > props )
     {
 
         this.properties.addAll( props );
@@ -39,7 +39,7 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
 
     // incremental constructor
     private WorldTileProperties (
-            List< WorldTileProperty > props ,
+            Set< WorldTileProperty > props ,
             WorldTileProperty prop
     )
     {
@@ -50,9 +50,10 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
     private WorldTileProperties ( WorldTileProperty... props )
     {
 
-        this.properties.addAll(
-                props != null ? Arrays.asList( props ) : Collections.emptyList()
-        );
+        this.properties
+                .addAll(
+                        props != null ? Arrays.asList( props )
+                                : Collections.emptySet() );
 
     }
 
@@ -102,7 +103,7 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
      */
     public WorldTileProperties removeProperty ( WorldTileProperty prop )
     {
-        List< WorldTileProperty > cpy = this.properties;
+        Set< WorldTileProperty > cpy = this.properties;
 
         cpy.removeIf( x -> x.equals( prop ) );
 
@@ -114,21 +115,10 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
      * 
      * @return a copy of the properties
      */
-    public List< WorldTileProperty > getProperties ()
+    public Set< WorldTileProperty > getProperties ()
     {
 
-        return new LinkedList<>( this.properties );
-    }
-
-    /**
-     * 
-     * @param index
-     * @return the <code>Class</code> of the property at the given index
-     */
-    public WorldTileProperty getProperty ( int index )
-    {
-
-        return this.properties.get( index );
+        return new HashSet<>( this.properties );
     }
 
     /**
