@@ -32,13 +32,13 @@ public class RaceDefinition implements PersonRelatedGameObject
     /**
      * 
      */
-    private static final long           serialVersionUID = 1L;
+    private static final long          serialVersionUID = 1L;
 
-    private final String                name;
+    private final String               name;
 
-    private final RaceIndicator         indicator;
+    private final RaceIndicator        indicator;
 
-    private final RaceMultipliers        stats;
+    private final RaceMultipliers      stats;
 
     private final Set< RaceIndicator > alliedRaces      = new HashSet<>();
 
@@ -56,24 +56,21 @@ public class RaceDefinition implements PersonRelatedGameObject
             String name ,
             RaceMultipliers stats ,
             Set< RaceIndicator > alliedRaces ,
-            Set< RaceIndicator > enemyRaces 
-    )
+            Set< RaceIndicator > enemyRaces )
     {
         this.name = name;
         this.indicator = new RaceIndicator( this.name );
-        
+
         this.stats = stats;
-        
+
         this.alliedRaces
                 .addAll(
                         alliedRaces != null ? alliedRaces
-                                : Collections.emptySet()
-                );
+                                : Collections.emptySet() );
         this.enemyRaces
                 .addAll(
                         enemyRaces != null ? enemyRaces
-                                : Collections.emptySet()
-                );
+                                : Collections.emptySet() );
     }
 
     private RaceDefinition (
@@ -81,8 +78,7 @@ public class RaceDefinition implements PersonRelatedGameObject
             RaceMultipliers stats ,
             Set< RaceIndicator > alliedRaces ,
             Set< RaceIndicator > enemyRaces ,
-            RaceIndicator enemy
-    )
+            RaceIndicator enemy )
     {
         enemyRaces.add( enemy );
 
@@ -90,17 +86,15 @@ public class RaceDefinition implements PersonRelatedGameObject
         this.indicator = new RaceIndicator( this.name );
 
         this.stats = stats;
-        
+
         this.alliedRaces
                 .addAll(
                         alliedRaces != null ? alliedRaces
-                                : Collections.emptySet()
-                );
+                                : Collections.emptySet() );
         this.enemyRaces
                 .addAll(
                         enemyRaces != null ? enemyRaces
-                                : Collections.emptySet()
-                );
+                                : Collections.emptySet() );
     }
 
     private RaceDefinition (
@@ -108,25 +102,22 @@ public class RaceDefinition implements PersonRelatedGameObject
             RaceMultipliers stats ,
             Set< RaceIndicator > alliedRaces ,
             RaceIndicator alliedRace ,
-            Set< RaceIndicator > enemyRaces
-    )
+            Set< RaceIndicator > enemyRaces )
     {
         alliedRaces.add( alliedRace );
         this.name = name;
         this.indicator = new RaceIndicator( this.name );
 
         this.stats = stats;
-        
+
         this.alliedRaces
                 .addAll(
                         alliedRaces != null ? alliedRaces
-                                : Collections.emptySet()
-                );
+                                : Collections.emptySet() );
         this.enemyRaces
                 .addAll(
                         enemyRaces != null ? enemyRaces
-                                : Collections.emptySet()
-                );
+                                : Collections.emptySet() );
     }
 
     /**
@@ -136,7 +127,7 @@ public class RaceDefinition implements PersonRelatedGameObject
     private RaceDefinition ( String name )
     {
         this.name = name;
-        
+
         this.stats = new RaceMultipliers();
 
         this.indicator = new RaceIndicator( this.name );
@@ -211,8 +202,7 @@ public class RaceDefinition implements PersonRelatedGameObject
      */
     private RaceDefinition addRace (
             RaceIndicator race ,
-            RaceRelationships relationship
-    )
+            RaceRelationships relationship )
     {
 
         if (
@@ -221,26 +211,27 @@ public class RaceDefinition implements PersonRelatedGameObject
         {
             if ( relationship.equals( RaceRelationships.ALLIED ) )
                 return new RaceDefinition(
-                        this.name , 
+                        this.name ,
                         this.stats ,
                         this.alliedRaces ,
                         race ,
-                        this.enemyRaces
-                );
+                        this.enemyRaces );
             else if ( relationship.equals( RaceRelationships.ENEMIES ) )
                 return new RaceDefinition(
                         this.name ,
                         this.stats ,
                         this.alliedRaces ,
                         this.enemyRaces ,
-                        race
-                );
-            else return new RaceDefinition( name , this.stats , alliedRaces , enemyRaces );
+                        race );
+            else return new RaceDefinition(
+                    name ,
+                    this.stats ,
+                    alliedRaces ,
+                    enemyRaces );
         }
 
         throw new UnsupportedOperationException(
-                "Cannot add if it is already in the lists"
-        );
+                "Cannot add if it is already in the lists" );
 
     }
 
@@ -249,16 +240,14 @@ public class RaceDefinition implements PersonRelatedGameObject
 
         public static Pair< RaceDefinition , RaceDefinition > rivalry (
                 RaceDefinition race1 ,
-                RaceDefinition race2
-        )
+                RaceDefinition race2 )
         {
             return addThemAs( race1 , race2 , RaceRelationships.ENEMIES );
         }
 
         public static Pair< RaceDefinition , RaceDefinition > alliance (
                 RaceDefinition race1 ,
-                RaceDefinition race2
-        )
+                RaceDefinition race2 )
         {
             return addThemAs( race1 , race2 , RaceRelationships.ALLIED );
         }
@@ -266,21 +255,17 @@ public class RaceDefinition implements PersonRelatedGameObject
         public static Pair< RaceDefinition , RaceDefinition > addThemAs (
                 RaceDefinition race1 ,
                 RaceDefinition race2 ,
-                RaceRelationships relation
-        )
+                RaceRelationships relation )
         {
             return new Pair<>(
                     race1
                             .addRace(
                                     race2.getIndicator() ,
-                                    relation
-                            ) ,
+                                    relation ) ,
                     race2
                             .addRace(
                                     race1.getIndicator() ,
-                                    relation
-                            )
-            );
+                                    relation ) );
         }
     }
 
@@ -304,7 +289,6 @@ public class RaceDefinition implements PersonRelatedGameObject
         return indicator;
     }
 
-    
     /**
      * @return the stats
      */
@@ -356,24 +340,21 @@ public class RaceDefinition implements PersonRelatedGameObject
         sb
                 .append(
                         "This is a race with name: " + this.name
-                                + System.lineSeparator()
-                );
+                                + System.lineSeparator() );
 
         sb
                 .append(
                         "Allied races are: " + alliedRaces
                                 .toString()
                                 .replaceAll( "[\\[\\]]" , "" )
-                                + System.lineSeparator()
-                );
+                                + System.lineSeparator() );
 
         sb
                 .append(
                         "Enemy races are: " + enemyRaces
                                 .toString()
                                 .replaceAll( "[\\[\\]]" , "" )
-                                + System.lineSeparator()
-                );
+                                + System.lineSeparator() );
 
         return sb.toString();
     }

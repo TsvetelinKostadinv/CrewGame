@@ -6,10 +6,9 @@
 package com.crewgame.people.races.definition.statistics;
 
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Function;
 
 
@@ -20,18 +19,18 @@ import java.util.function.Function;
 public class RaceMultipliers
 {
 
-    private final Map< String , Double > stats = new LinkedHashMap<>();
+    private final Set< RaceStatistic > stats = new HashSet<>();
 
     /**
      * @param stats2
      * @param entry
      */
     private RaceMultipliers (
-            Map< String , Double > stats ,
-            Entry< String , Double > stat )
+            Set< RaceStatistic > stats ,
+            RaceStatistic stat )
     {
-        stats.put( stat.getKey() , stat.getValue() );
-        this.stats.putAll( stats );
+        stats.add( stat );
+        this.stats.addAll( stats );
     }
 
     /**
@@ -40,26 +39,33 @@ public class RaceMultipliers
     public RaceMultipliers ()
     {}
 
-    public Map< String , Double > getStats ()
+    public Set< RaceStatistic > getStats ()
     {
         return stats;
     }
 
-    public RaceMultipliers addStat ( String name , Double value )
+    public RaceMultipliers addStat ( RaceStatistic stat )
     {
-        return new RaceMultipliers( this.stats , Map.entry( name , value ) );
+        return new RaceMultipliers( this.stats , stat );
     }
 
     public RaceMultipliers mapStat (
             String name ,
-            Function< Double , Double > mapper )
+            Function< RaceStatistic , RaceStatistic > mapper )
     {
         Objects.requireNonNull( name );
         Objects.requireNonNull( mapper );
 
+        RaceStatistic stat = this.stats
+                .stream()
+                .filter( x -> x.getName().equals( name ) )
+                .map( mapper )
+                .findFirst()
+                .get();
+
         return new RaceMultipliers(
                 this.stats ,
-                Map.entry( name , mapper.apply( this.stats.get( name ) ) ) );
+                stat );
 
     }
 
