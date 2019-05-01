@@ -156,7 +156,7 @@ public class AvailableResources implements WorldTileProperty
         for ( int i = 0 ; i < this.resources.size() ; i++ )
         {
             Resource res = this.resources.get( i );
-            sb.append( "N" + i + " " );
+            sb.append( " - N" + i + " " );
             sb.append( res.toString() );
             sb.append( System.lineSeparator() );
         }
