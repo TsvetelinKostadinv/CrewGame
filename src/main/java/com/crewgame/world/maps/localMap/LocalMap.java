@@ -122,7 +122,7 @@ public class LocalMap implements WorldGameObject
      * @throws IllegalArgumentException
      *             - if the supplied arguments are <code>null</code>
      */
-    public LocalMap insertOnNextAvailableCorrdinate ( WorldTile tile )
+    public LocalMap addOnNextAvailableCorrdinate ( WorldTile tile )
             throws IllegalArgumentException
     {
         Objects.requireNonNull( tile );
@@ -218,13 +218,13 @@ public class LocalMap implements WorldGameObject
     public String toString ()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append( "This map contains: " + map.size() );
+        sb.append( "This map contains: " + map.size() + System.lineSeparator() );
         for ( Map.Entry< Coordinate , WorldTile > entry : map.entrySet() )
         {
-            sb.append( "Coordinates: " + entry.getKey().toString() );
+            sb.append( "Coordinates: " + entry.getKey().toString() + System.lineSeparator() );
             sb.append( "World tile: " + entry.getValue().toString() );
         }
-        return super.toString();
+        return sb.toString();
     }
 
     /*

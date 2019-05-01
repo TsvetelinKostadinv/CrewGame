@@ -81,12 +81,12 @@ public interface WorldTileGenerator
         return tile;
     }
 
-    public static void main ( String [] args )
-    {
-        for ( int i = 0 ; i < 10 ; i++ )
-        {
-            System.out.println( WorldTileGenerator.generateSample() );
-            System.out.println( "--------------------------------------------------" );
-        }
-    }
+//    public static void main ( String [] args )
+//    {
+//        for ( int i = 0 ; i < 10 ; i++ )
+//        {
+//            System.out.println( WorldTileGenerator.generateSample() );
+//            System.out.println( "--------------------------------------------------" );
+//        }
+//    }
 }
