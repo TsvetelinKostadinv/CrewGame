@@ -1,13 +1,14 @@
 
-
 /*
  * 05/09/2018 at 23:30:55
  * Saver.java created by Tsvetelin
  */
 package com.utils.saving;
 
+
 import java.io.File;
 import java.io.Serializable;
+
 
 /**
  * 
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @FunctionalInterface
 public interface Saver
 {
+
     /**
      * 
      * Saves the supplied object to the location
@@ -26,6 +28,6 @@ public interface Saver
      * @param location
      * @param save
      */
-    public < T extends Serializable > void save(File location, T save);
+    public < T extends Serializable > void save ( File location , T save );
 
 }

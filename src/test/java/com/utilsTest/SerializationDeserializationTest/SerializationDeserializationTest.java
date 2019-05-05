@@ -77,7 +77,7 @@ class SerializationDeserializationTest
         
         saver.save( tempFile , resesForSerialization );
         
-        AvailableResources deserReses = ( reader.readFromSave( tempFile , AvailableResources.class ));
+        AvailableResources deserReses = ( reader.readFromSave( tempFile , AvailableResources.class )).get();
 //        
 //        System.out.println( deserReses );
 //        

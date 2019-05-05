@@ -1,12 +1,14 @@
 
-
 /*
  * 05/09/2018 at 23:38:30
  * ReadFromSave.java created by Tsvetelin
  */
 package com.utils.retrievingSaves;
 
+
 import java.io.File;
+import java.util.Optional;
+
 
 /**
  * 
@@ -18,12 +20,16 @@ import java.io.File;
 @FunctionalInterface
 public interface ReaderFromSaves
 {
+
     /**
      * 
-     * Reads the file and then parses it to the supplied <code>Class</code> object and returns it
+     * Reads the file and then parses it to the supplied <code>Class</code>
+     * object and returns and optional of it
      * 
      * @param location
      * @param desiredObject
      */
-    public < T > T readFromSave(File location, Class<T> desiredObject);
+    public < T > Optional< T > readFromSave (
+            File location ,
+            Class< T > desiredObject );
 }
