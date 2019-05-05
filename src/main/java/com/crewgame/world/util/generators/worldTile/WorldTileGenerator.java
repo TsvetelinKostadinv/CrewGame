@@ -21,6 +21,7 @@ import com.crewgame.world.resources.Resource;
  * @author Tsvetelin
  *
  */
+@FunctionalInterface
 public interface WorldTileGenerator
 {
 
@@ -62,7 +63,7 @@ public interface WorldTileGenerator
 
     public WorldTile generateTile ();
 
-    public static WorldTile generateSample ()
+    public static WorldTile mock ()
     {
 
         AvailableResources resources = AvailableResources
@@ -85,7 +86,7 @@ public interface WorldTileGenerator
 //    {
 //        for ( int i = 0 ; i < 10 ; i++ )
 //        {
-//            System.out.println( WorldTileGenerator.generateSample() );
+//            System.out.println( WorldTileGenerator.mock() );
 //            System.out.println( "--------------------------------------------------" );
 //        }
 //    }
