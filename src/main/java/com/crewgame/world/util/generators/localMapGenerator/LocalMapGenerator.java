@@ -14,28 +14,36 @@ import com.crewgame.world.util.generators.worldTile.WorldTileGenerator;
  * @author Tsvetelin
  *
  */
-@FunctionalInterface
 public interface LocalMapGenerator
 {
 
-    public LocalMap generate ();
-
-    public static LocalMap generateSample ()
+    public static LocalMap generate ( final WorldTileGenerator generator , final int xSize , final int ySize )
     {
-        LocalMap local = LocalMap.EMPTY_LOCAL_MAP;
+        System.out.println( "Generating..." );
+        LocalMap local = LocalMap.create( xSize , ySize );
+        
+        
+        do{
+            local
+                    .addOnNextAvailableCorrdinate(
+                            generator.generateTile() );
+        }while ( !local.isFull() );
+
+        return local;
+        
+    }
+
+    public static LocalMap mock ()
+    {
+        LocalMap local = LocalMap.EMPTY_DEFAULT_LOCAL_MAP;
 
         while ( !local.isFull() )
         {
             local
                     .addOnNextAvailableCorrdinate(
-                            WorldTileGenerator.generateSample() );
+                            WorldTileGenerator.mock() );
         }
 
         return local;
-    }
-
-    public static void main ( String [] args )
-    {
-        System.out.println( LocalMapGenerator.generateSample().toString() );
     }
 }

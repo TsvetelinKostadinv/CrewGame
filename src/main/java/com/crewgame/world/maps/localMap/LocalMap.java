@@ -28,38 +28,57 @@ import com.utils.mapNavigation.coordinates.Coordinate;
 public class LocalMap implements WorldGameObject
 {
 
-    public static transient final LocalMap      EMPTY_LOCAL_MAP  = new LocalMap();
+    public static transient final LocalMap      EMPTY_DEFAULT_LOCAL_MAP  = new LocalMap();
 
     /**
      * 
      */
     private static final long                   serialVersionUID = 1L;
 
-    //
-    public static transient final int           X_RANGE          = 100;
+    public static transient final int           DEFAULT_X_RANGE  = 5;
 
-    public static transient final int           Y_RANGE          = 100;
-    // These constants are to be removed if I want it to be open world
+    public static transient final int           DEFAULT_Y_RANGE  = 5;
+
+    public final int                            X_RANGE;
+
+    public final int                            Y_RANGE;
 
     private final Map< Coordinate , WorldTile > map              = new TreeMap< Coordinate , WorldTile >(
-            Coordinate.COORDINATE_COMPARATOR
-    );
+            Coordinate.COORDINATE_COMPARATOR );
+
+    /*
+     * TODO incremental constructors for the x and y range of the LocalMap
+     * (if it overflows the x and y range are incremented?)
+     */
 
     private LocalMap ()
-    {}
+    {
+        this.X_RANGE = DEFAULT_X_RANGE;
+        this.Y_RANGE = DEFAULT_Y_RANGE;
+    }
 
-    private LocalMap ( Map< Coordinate , WorldTile > map )
+    private LocalMap ( Map< Coordinate , WorldTile > map , int x , int y )
     {
         this.map.putAll( map != null ? map : Collections.emptyMap() );
+        this.X_RANGE = x;
+        this.Y_RANGE = y;
     }
 
     private LocalMap (
             Map< Coordinate , WorldTile > map ,
-            Map.Entry< Coordinate , WorldTile > tile
-    )
+            Map.Entry< Coordinate , WorldTile > tile ,
+            int x ,
+            int y )
     {
         map.put( tile.getKey() , tile.getValue() );
         this.map.putAll( map );
+        this.X_RANGE = x;
+        this.Y_RANGE = y;
+    }
+
+    public static LocalMap create ( int x , int y )
+    {
+        return new LocalMap( null , x , y );
     }
 
     /**
@@ -94,20 +113,23 @@ public class LocalMap implements WorldGameObject
 
         if ( coord.getX() < 0 && coord.getY() < 0 )
             throw new IllegalArgumentException(
-                    "The supplied coordinates cannot be less than 0"
-            );
+                    "The supplied coordinates cannot be less than 0" );
 
         if ( !map.containsKey( coord ) )
         {
             Map.Entry< Coordinate , WorldTile > newEntry = Map
                     .entry( coord , tile );
-
-            return new LocalMap( this.map , newEntry );
+            
+            System.out.println( "Adding on coord: " + newEntry.getKey().toString() );
+            return new LocalMap(
+                    this.map ,
+                    newEntry ,
+                    this.X_RANGE ,
+                    this.Y_RANGE );
         } else
         {
             throw new TileOccupiedException(
-                    "The supplied coorinates are occupied"
-            );
+                    "The supplied coorinates are occupied" );
         }
     }
 
@@ -128,13 +150,16 @@ public class LocalMap implements WorldGameObject
         Objects.requireNonNull( tile );
 
         Coordinate c = new Coordinate( 0 , 0 );
-
-        for ( long x = 0 ; x < X_RANGE ; x++ )
+        
+        System.out.printf( "-----------Current size: %d x %d %n" , X_RANGE , Y_RANGE );
+        
+        for ( long x = 0 ; x < this.X_RANGE ; x++ )
         {
             c = c.x( x );
-            for ( long y = 0 ; y < X_RANGE ; y++ )
+            for ( long y = 0 ; y < this.Y_RANGE ; y++ )
             {
                 c = c.y( y );
+                
                 try
                 {
                     return this.addTile( c , tile );
@@ -166,15 +191,14 @@ public class LocalMap implements WorldGameObject
      *         false otherwise
      */
     public boolean searchForFirstContaining (
-            Predicate< WorldTile > filterForTile
-    )
+            Predicate< WorldTile > filterForTile )
     {
         Coordinate c = new Coordinate( 0 , 0 );
 
-        for ( long x = 0 ; x < X_RANGE ; x++ )
+        for ( long x = 0 ; x < this.X_RANGE ; x++ )
         {
             c = c.x( x );
-            for ( long y = 0 ; y < X_RANGE ; y++ )
+            for ( long y = 0 ; y < this.Y_RANGE ; y++ )
             {
                 c = c.y( y );
                 if ( filterForTile.test( this.map.get( c ) ) ) return true;
@@ -192,15 +216,14 @@ public class LocalMap implements WorldGameObject
      *         true otherwise
      */
     public boolean searchForNotContaining (
-            Predicate< WorldTile > filterForTile
-    )
+            Predicate< WorldTile > filterForTile )
     {
         Coordinate c = new Coordinate( 0 , 0 );
 
-        for ( long x = 0 ; x < X_RANGE ; x++ )
+        for ( long x = 0 ; x < this.X_RANGE ; x++ )
         {
             c = c.x( x );
-            for ( long y = 0 ; y < X_RANGE ; y++ )
+            for ( long y = 0 ; y < this.Y_RANGE ; y++ )
             {
                 c = c.y( y );
                 if ( filterForTile.test( this.map.get( c ) ) ) return false;
@@ -218,10 +241,16 @@ public class LocalMap implements WorldGameObject
     public String toString ()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append( "This map contains: " + map.size() + System.lineSeparator() );
+        sb
+                .append(
+                        "This map contains: " + map.size()
+                                + System.lineSeparator() );
         for ( Map.Entry< Coordinate , WorldTile > entry : map.entrySet() )
         {
-            sb.append( "Coordinates: " + entry.getKey().toString() + System.lineSeparator() );
+            sb
+                    .append(
+                            "Coordinates: " + entry.getKey().toString()
+                                    + System.lineSeparator() );
             sb.append( "World tile: " + entry.getValue().toString() );
         }
         return sb.toString();
