@@ -10,11 +10,11 @@ apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'eclipse'
 
-sourceCompatibility = 10
-targetCompatibility = 10
+sourceCompatibility = 11
+targetCompatibility = 11
 
 archivesBaseName = 'CrewGame'
-version = '0.0.0.639' 
+version = '0.0.0.644' 
 
 sourceSets
 {
@@ -42,6 +42,7 @@ repositories
 dependencies
 {
 	compile 'junit:junit:4.12'
+	
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.0.0'
