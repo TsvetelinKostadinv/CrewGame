@@ -27,7 +27,7 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
     /**
      * 
      */
-    private static final long               serialVersionUID = 1L;
+    private static final long              serialVersionUID = 1L;
 
     private final Set< WorldTileProperty > properties       = new HashSet<>();
 
@@ -40,8 +40,7 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
     // incremental constructor
     private WorldTileProperties (
             Set< WorldTileProperty > props ,
-            WorldTileProperty prop
-    )
+            WorldTileProperty prop )
     {
         this.properties.addAll( props );
         this.properties.add( prop );
@@ -88,8 +87,7 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
         } else
         {
             throw new IllegalArgumentException(
-                    "Cannot have the same property added twice"
-            );
+                    "Cannot have the same property added twice" );
         }
     }
 
@@ -154,15 +152,18 @@ public class WorldTileProperties implements PropertyGameObject , Iterable< World
     {
 
         StringBuilder sb = new StringBuilder();
-        sb.append(
-                "This property list contains " + properties.size()
-                        + " elements:"
-        );
+        sb
+                .append(
+                        "This property list contains " + properties.size()
+                                + " elements:" );
         sb.append( System.lineSeparator() );
 
-        this.properties.forEach(
-                x -> sb.append( x.toString() + System.lineSeparator() )
-        );
+        this.properties
+                .forEach(
+                        x -> sb
+                                .append(
+                                        x.toString()
+                                                + System.lineSeparator() ) );
 
         return sb.toString();
     }

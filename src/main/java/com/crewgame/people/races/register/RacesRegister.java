@@ -91,8 +91,7 @@ public class RacesRegister implements Iterable< RaceDefinition > , PersonRelated
             !races.contains( race )
         ) { return new RacesRegister( this.races , race ); }
         throw new UnsupportedOperationException(
-                "Cannot add it if it already exists!"
-        );
+                "Cannot add it if it already exists!" );
     }
 
     /**

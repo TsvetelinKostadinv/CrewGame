@@ -28,22 +28,31 @@ import com.utils.mapNavigation.coordinates.Coordinate;
 public class LocalMap implements WorldGameObject
 {
 
-    public static transient final LocalMap      EMPTY_DEFAULT_LOCAL_MAP  = new LocalMap();
+    /**
+     * The default small map for testing purposes
+     */
+    public static transient final LocalMap      EMPTY_DEFAULT_LOCAL_MAP = new LocalMap();
 
     /**
      * 
      */
-    private static final long                   serialVersionUID = 1L;
+    private static final long                   serialVersionUID        = 1L;
 
-    public static transient final int           DEFAULT_X_RANGE  = 5;
+    public static transient final int           DEFAULT_X_RANGE         = 5;
 
-    public static transient final int           DEFAULT_Y_RANGE  = 5;
+    public static transient final int           DEFAULT_Y_RANGE         = 5;
 
+    /**
+     * The current x size of the map
+     */
     public final int                            X_RANGE;
 
+    /**
+     * The current y size of the map
+     */
     public final int                            Y_RANGE;
 
-    private final Map< Coordinate , WorldTile > map              = new TreeMap< Coordinate , WorldTile >(
+    private final Map< Coordinate , WorldTile > map                     = new TreeMap< Coordinate , WorldTile >(
             Coordinate.COORDINATE_COMPARATOR );
 
     /*
@@ -57,6 +66,15 @@ public class LocalMap implements WorldGameObject
         this.Y_RANGE = DEFAULT_Y_RANGE;
     }
 
+    /**
+     * 
+     * @param map
+     *            - the map from which will be generated
+     * @param x
+     *            - size
+     * @param y
+     *            - size
+     */
     private LocalMap ( Map< Coordinate , WorldTile > map , int x , int y )
     {
         this.map.putAll( map != null ? map : Collections.emptyMap() );
@@ -64,6 +82,19 @@ public class LocalMap implements WorldGameObject
         this.Y_RANGE = y;
     }
 
+    /**
+     * 
+     * Incremental constructor
+     * 
+     * @param map
+     *            - the current map
+     * @param tile
+     *            - coordinate + tile to be inserted
+     * @param x
+     *            - size
+     * @param y
+     *            - size
+     */
     private LocalMap (
             Map< Coordinate , WorldTile > map ,
             Map.Entry< Coordinate , WorldTile > tile ,
@@ -76,6 +107,14 @@ public class LocalMap implements WorldGameObject
         this.Y_RANGE = y;
     }
 
+    /**
+     * 
+     * Crate an empty map of the supplied size
+     * 
+     * @param x
+     * @param y
+     * @return - an empty LocalMap
+     */
     public static LocalMap create ( int x , int y )
     {
         return new LocalMap( null , x , y );
@@ -119,8 +158,11 @@ public class LocalMap implements WorldGameObject
         {
             Map.Entry< Coordinate , WorldTile > newEntry = Map
                     .entry( coord , tile );
-            
-            System.out.println( "Adding on coord: " + newEntry.getKey().toString() );
+
+            System.out
+                    .println(
+                            "Adding on coord: "
+                                    + newEntry.getKey().toString() );
             return new LocalMap(
                     this.map ,
                     newEntry ,
@@ -150,16 +192,14 @@ public class LocalMap implements WorldGameObject
         Objects.requireNonNull( tile );
 
         Coordinate c = new Coordinate( 0 , 0 );
-        
-        System.out.printf( "-----------Current size: %d x %d %n" , X_RANGE , Y_RANGE );
-        
+
         for ( long x = 0 ; x < this.X_RANGE ; x++ )
         {
             c = c.x( x );
             for ( long y = 0 ; y < this.Y_RANGE ; y++ )
             {
                 c = c.y( y );
-                
+
                 try
                 {
                     return this.addTile( c , tile );
@@ -172,11 +212,18 @@ public class LocalMap implements WorldGameObject
         throw new UnsupportedOperationException( "The map is full!" );
     }
 
+    /**
+     * 
+     * @return true if the map is empty and false otherwise
+     */
     public boolean isEmpty ()
     {
         return this.searchForNotContaining( x -> x != null );
     }
 
+    /**
+     * @return true if it is full and false otherwise
+     */
     public boolean isFull ()
     {
         return this.searchForNotContaining( x -> x == null );

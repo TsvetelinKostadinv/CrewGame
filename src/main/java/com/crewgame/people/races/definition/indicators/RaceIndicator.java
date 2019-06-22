@@ -1,12 +1,13 @@
 
-
 /*
  * 03/11/2018 at 14:49:28 ÷.
  * RaceIndicator.java created by Tsvetelin
  */
 package com.crewgame.people.races.definition.indicators;
 
+
 import com.crewgame.people.PersonRelatedGameObject;
+
 
 /**
  * 
@@ -17,13 +18,14 @@ import com.crewgame.people.PersonRelatedGameObject;
  */
 public final class RaceIndicator implements PersonRelatedGameObject
 {
+
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    
-    private final String name;
-    
+
+    private final String      name;
+
     /**
      * 
      */
@@ -31,7 +33,7 @@ public final class RaceIndicator implements PersonRelatedGameObject
     {
         this.name = name;
     }
-    
+
     /**
      * @return the name
      */

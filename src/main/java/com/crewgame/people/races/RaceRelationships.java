@@ -1,5 +1,4 @@
 
-
 /*
  * 21/10/2018 at 16:31:33
  * RaceRelationship.java created by Tsvetelin
@@ -16,7 +15,7 @@ package com.crewgame.people.races;
  */
 public enum RaceRelationships
 {
-    ALLIED,
-    ENEMIES,
+    ALLIED ,
+    ENEMIES ,
     NOT_INTERESTED
 }
